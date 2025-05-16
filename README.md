@@ -1,2 +1,2 @@
 # RetroDisc
-Ficticious CD store
+Fictitious CD store
