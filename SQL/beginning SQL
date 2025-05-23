@@ -1,0 +1,37 @@
+CREATE TABLE users(
+user_id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+email text NOT NULL UNIQUE,
+password text NOT NULL
+);
+
+CREATE TABLE genre(
+genre_id SERIAL PRIMARY KEY,
+genre_name VARCHAR(50) NOT NULL
+);
+CREATE TABLE product(
+product_id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+product_type VARCHAR(50) NOT NULL,
+product_price numeric NOT NULL,
+product_artist uuid REFERENCES artist(artist_id),
+product_album uuid REFERENCES album(album_id)
+);
+
+CREATE TABLE artist(
+artist_id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+artist_name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE album(
+album_id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+album_name VARCHAR(100) NOT NULL,
+artist_id uuid REFERENCES artist(artist_id)
+);
+
+CREATE TABLE user_order(
+order_id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+user_id uuid REFERENCES users(user_id),
+product uuid REFERENCES product(product_id),
+purchase_date TIMESTAMP NOT NULL,
+purchase_total numeric NOT NULL,
+order_status VARCHAR(50)
+);
