@@ -4,10 +4,32 @@ email text NOT NULL UNIQUE,
 password text NOT NULL
 );
 
+
+
 CREATE TABLE genre(
 genre_id SERIAL PRIMARY KEY,
 genre_name VARCHAR(50) NOT NULL
 );
+
+INSERT INTO genre(genre_name)
+VALUES
+('Jazz'),
+('Rock'),
+('Indie'),
+('RnB/Soul'),
+('Country'),
+('Rap/Hip Hop'),
+('Pop'),
+('Metal'),
+('Classical'),
+('Sound Tracks'),
+('Blues'),
+('Reggae'),
+('Dance/Electronic'),
+('Folk'),
+('Gospel');
+
+
 CREATE TABLE product(
 product_id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
 product_type VARCHAR(50) NOT NULL,
@@ -21,11 +43,133 @@ artist_id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
 artist_name VARCHAR(100) NOT NULL
 );
 
+INSERT INTO artist(artist_name)
+VALUES
+('Lady Gaga'),
+('Talib Kweli'),
+('Lupe Fiasco'),
+('Ice Cube'),
+('Method Man'),
+('Miley Cyrus'),
+('Billy Ray Cyrus'),
+('Sabrina Carpenter'),
+('Madonna'),
+('Shakira'),
+('Michael Jackson'),
+('Taylor Swift'),
+('Elvis Presley'),
+('Eminem'),
+('Beyonce'),
+('Kanye West'),
+('Frank Sinatra'),
+('Elton John'),
+('David Bowie'),
+('Bob Dylan'),
+('Jay-Z'),
+('Whitney Houston'),
+('Rihanna'),
+('Tupak Shakur'),
+('Mariah Carey'),
+('Arethra Franklin'),
+('Stevie Wonder'),
+('Prince'),
+('Justim Timberlake'),
+('Britney Spears'),
+('Drake'),
+('Bruce Springsteen'),
+('Diana Ross'),
+('Bob Marley'),
+('Johnny Cash'),
+('Lil Wayne'),
+('Billy Joel'),
+('Ed Sheeran'),
+('Marvin Gaye'),
+('Rod Stewart'),
+('Adele'),
+('Ray Charles'),
+('Carlos Santana'),
+('Justin Bieber'),
+('Tina Turner'),
+('Donna Summer'),
+('Lionel Richie'),
+('Linda Ronstadt'),
+('Katy Perry'),
+('Phil Collins'),
+('Jimi Hendrix'),
+('Paul McCartney'),
+('Celine Dion'),
+('Barbra Streisand'),
+('James Taylor'),
+('Eric Clapton'),
+('Neil Diamond'),
+('Kenny Rogers'),
+('Garth Brooks'),
+('The Rolling Stones'),
+('Pink Floyd'),
+('The Beatles'),
+('Metallica'),
+('The Who'),
+('AC/DC'),
+('Eagles'),
+('Led Zeppelin'),
+('Nirvana'),
+('Guns N'' Roses'),
+('The Doors'),
+('U2'),
+('Aerosmith'),
+('Grateful Dead'),
+('Van Halen'),
+('Fleetwood Mac'),
+('Radiohead'),
+('The Beach Boys'),
+('Black Sabbath'),
+('The Kinks'),
+('Creedence Clearwater Revival'),
+('Steely Dan'),
+('R.E.M'),
+('Lynyrd Skynyrd'),
+('Red Hot Chili Peppers'),
+('Pearl Jam'),
+('The Clash'),
+('ZZ Top'),
+('Ramones'),
+('Cream'),
+('Genesis'),
+('Coldplay'),
+('The Dire Straits Experience'),
+('The Smashing Pumpkins'),
+('The Police'),
+('ABBA'),
+('Rage Against the Machine'),
+('The Byrds'),
+('Iron Maiden'),
+('Queen'),
+('The Stooges'),
+('The Temptations'),
+('The Allman Brothers Band'),
+('Booker T. & the M.G.''s'),
+('Sly and the Family Stone'),
+('Talking Heads'),
+('The Velvet Underground'),
+('Jeferson Airplane'),
+('The Cars'),
+('Rush'),
+('Kiss')
+
+
+
+
+
+
+
+
+
 CREATE TABLE album(
 album_id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
 album_name VARCHAR(100) NOT NULL,
 artist_id uuid REFERENCES artist(artist_id)
 );
+
 
 CREATE TABLE user_order(
 order_id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
