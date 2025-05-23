@@ -17,6 +17,15 @@ const HomePage = () => {
 
     getApi();
 
+    fetch('api/whatever',{
+       method: "POST",
+       headers: {'Content-Type': 'application/json'},
+       body: JSON.stringify({
+        email:  EMAIL_VARIABLE,
+        password: password_Variable,
+       }) 
+    })
+
     },[])
 
           return(
