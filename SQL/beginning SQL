@@ -45,6 +45,7 @@ artist_name VARCHAR(100) NOT NULL
 
 INSERT INTO artist(artist_name)
 VALUES
+('Green Day'),
 ('Lady Gaga'),
 ('Talib Kweli'),
 ('Lupe Fiasco'),
@@ -156,19 +157,23 @@ VALUES
 ('Rush'),
 ('Kiss')
 
-
-
-
-
-
-
-
-
 CREATE TABLE album(
 album_id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
 album_name VARCHAR(100) NOT NULL,
 artist_id uuid REFERENCES artist(artist_id)
 );
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 CREATE TABLE user_order(

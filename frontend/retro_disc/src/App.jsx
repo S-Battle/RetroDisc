@@ -4,6 +4,7 @@ import './App.css'
 import HomePage from './pages/HomePage'
 import CartPage from './pages/CartPage'
 import AccountPage from './pages/AccountPage'
+import Navigator from './components/Navigator'
 
 function App() {
  
@@ -11,11 +12,11 @@ function App() {
   return (
 
     <>
-     <nav>
-      <Link to="/" ><div style={{marginLeft: "2rem"}}>Home</div></Link>      
+     <Navigator>
+      {/* <Link to="/" ><div style={{marginLeft: "2rem"}}>Home</div></Link>      
       <Link to="/cart" >Cart</Link>
-      <Link to="/account" >Account</Link>
-    </nav>
+      <Link to="/account" >Account</Link> */}
+    </Navigator>
 
     <Routes>
       <Route path="/" element={<HomePage />}/>
