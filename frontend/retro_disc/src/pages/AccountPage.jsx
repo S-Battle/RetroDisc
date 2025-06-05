@@ -6,7 +6,10 @@ const AccountPage = ({urlFix}) => {
    const [passwordInput, setPasswordInput] = useState("")
    const [emailInput, setEmailInput] = useState("")
    const [loggedIn, setLoggedIn ] = useState(false);
-      const loginView = ()=>{             
+   
+   
+   
+   const logInView = ()=>{        
          
          return <div className="loginContainer" style={{display:"flex", justifyContent:"center", paddingTop:"100px"}}>
           <div className="text-center" style={{width: "350px"}}>
@@ -43,18 +46,47 @@ const AccountPage = ({urlFix}) => {
   <p className="mt-5 mb-3 text-muted">© 2025 RetroDisc</p>
   </form>                       
 </div>
-      </div> }
+      </div> 
+   }
+
+   const loggedInView = () =>{
+      return <>
+               <div className="p-5 text-center bg-body-tertiary">
+               <h1 className="mb-3">Successfully Logged in</h1>
+               <h2 className="mb-3">Hello, {`${localStorage.getItem('EMAIL')}`}</h2>
+               <a data-mdb-ripple-init className="btn btn-primary" href="" role="button" onClick={()=>{logOut();}}>Log Out</a>
+               </div>              
+               
+            </>
+   }
+
+   const logOut = ()=>{
+
+         localStorage.setItem('TOKEN', "");
+         localStorage.setItem('EMAIL', "");
+      setLoggedIn(()=>{
+         return false;
+      })
+
+   }
 
 
    const verifyToken = async ()=>{
       if(localStorage.getItem("TOKEN") != ""){
-      let response = await fetch(`${urlFix}/api/token/verify`,{
-         method: "POST",
-         headers:{"Content-Type":"application/json",
-            authorization:`Bearer:${localStorage.getItem('TOKEN')}`
-         },
-      });
-      console.log("RESPONSE: ",response);      
+         let response = await fetch(`${urlFix}/api/token/verify`,{
+            method: "POST",
+            headers:{"Content-Type":"application/json",
+               authorization:`Bearer:${localStorage.getItem('TOKEN')}`
+            },
+         });
+         console.log("RESPONSE: ",response);
+         let data = await response.json();
+         if(data.message == "success"){
+            setLoggedIn(()=>{
+               return true;
+            })
+            localStorage.setItem('EMAIL', data.user)
+         }           
       }
       else{
          console.log("NO TOKEN FOUND")
@@ -81,11 +113,13 @@ const AccountPage = ({urlFix}) => {
       console.log(data)
        if(data.message == "success"){
          localStorage.setItem('TOKEN', data.token);
+         setLoggedIn(()=>{
+            return true;
+         })
       }
    }
 
    const attemptRegister = async()=>{
-
       const response = await fetch(`${urlFix}/api/register`,{
          method:"POST",
          headers:{"Content-Type":"application/json"},
@@ -98,6 +132,9 @@ const AccountPage = ({urlFix}) => {
       console.log(data)
       if(data.message == "success"){
          localStorage.setItem('TOKEN', data.token);
+         setLoggedIn(()=>{
+            return true;
+         })
       }
 
 
@@ -107,7 +144,8 @@ const AccountPage = ({urlFix}) => {
 
       return <>
 
-            {loginView()}
+            {(loggedIn != true) && logInView()}
+            {(loggedIn == true) && loggedInView()}
    
           </>
 
