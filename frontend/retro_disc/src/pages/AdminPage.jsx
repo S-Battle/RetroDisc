@@ -10,6 +10,8 @@ const AdminPage = ({urlFix}) => {
     const [genreInput, setGenreInput] = useState("");
     const [yearInput, setYearInput] = useState("");
     const [allAlbums, setAllAlbums] = useState([]);
+    
+
     const allAlbumsView = ()=>{
 
         return <>

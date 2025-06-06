@@ -9,6 +9,7 @@ const AccountPage = ({urlFix}) => {
    const [loggedIn, setLoggedIn ] = useState(false);
    const [customerPref, setCustomerPref] = useState([]);
    const navigate = useNavigate();
+   const [cartItems, setCartItems] = useState([]);
    
    
    
@@ -55,11 +56,15 @@ const AccountPage = ({urlFix}) => {
 
    const loggedInView = () =>{
       return <>
-               <div className="p-5 text-center bg-body-tertiary">
-               <h1 className="mb-3">Successfully Logged in</h1>
-               <h2 className="mb-3">Hello, {`${localStorage.getItem('EMAIL')}`}</h2>
-               <button data-mdb-ripple-init  href={null} role="button" onClick={()=>{logOut();}}>Log Out</button>
-               </div>              
+               <div className="d-flex flex-wrap p-2 bd-highlight h-100">
+                  <div className="col-12 h-100 d-inline-block col-md-3 col-lg-2 border border-dark rounded" ></div>
+                  <div className="col-12 col-md-9 col-lg-10 p-5 text-center bg-body-tertiary">
+                  <h1 className="mb-3">Successfully Logged in</h1>
+                  <h2 className="mb-3">Hello, {`${localStorage.getItem('EMAIL')}`}</h2>
+                  <button data-mdb-ripple-init  href={null} role="button" onClick={()=>{logOut();}}>Log Out</button>
+                  </div>   
+               </div>
+
                
             </>
    }
