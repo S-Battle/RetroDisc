@@ -12,7 +12,7 @@ const jwt = require('jsonwebtoken');
 app.use(cors());
 
 
-const {Client } = require('pg');
+const { Client } = require('pg');
 const client = new Client({  
   connectionString: process.env.PG_URL,
 ssl:{
@@ -120,9 +120,9 @@ app.post("/api/token/verify", async (req, res)=>{
               res.json(err) 
             }
             else{
-              user = await decoded.username;  ////RIGHT HERE     
+              email = await decoded.username;  ////RIGHT HERE     
               console.log(user)         ;
-              res.status(200).json({message:'success', token: token, user: user});           
+              res.status(200).json({message:'success', token: token, email: email});           
             }
           });
       }catch(e){  
@@ -153,6 +153,27 @@ app.get('/api/getalbum/:artist', async(req, res)=>{
     res.json("Sorry, there were no albums, try another name")
   }
 });
+
+app.post('/api/add/album', async(req, res)=>{
+
+  const {artistInput, albumInput, priceInput, genreInput, yearInput} = await req.body;
+  const data = await client.query("SELECT * FROM artist where artist_name = $1", [artistInput]);
+  console.log(data);
+  const data2 = await client.query("SELECT * FROM genre WHERE genre_name = $1", [genreInput]);
+  console.log(data2);
+  const artist_id = await data.rows[0].artist_id;
+  const genre_id = await data2.rows[0].genre_id;
+  if(genre_id != null && artist_id != null){
+
+    const data3 = await client.query("INSERT INTO album(album_name, artist_id, album_year, album_genre, album_price) VALUES($1,$2,$3,$4,$5)",
+      [albumInput,artist_id,yearInput,genre_id,priceInput]);
+    if(data3.rowCount > 0){
+      res.json("success")
+    }
+  }
+})
+
+
 
 
 app.listen(port, () => {
