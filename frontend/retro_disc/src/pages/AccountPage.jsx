@@ -1,5 +1,6 @@
 import React,{useEffect, useState} from "react";
 import { Link, useNavigate } from 'react-router';
+import CDdisplay from "../components/CDdisplay";
 
 
 
@@ -10,9 +11,61 @@ const AccountPage = ({urlFix}) => {
    const [customerPref, setCustomerPref] = useState([]);
    const navigate = useNavigate();
    const [cartItems, setCartItems] = useState([]);
+   const [searchType, setSearchType] = useState({type:"search"})
+   const [cartCount, setCartCount ] = useState(0);   
+   const [searchBar, setSearchBar ] = useState("");
+   const [cdArray, setCDArray ] = useState([]);
    
-   
-   
+   const searchButton = (type)=>{
+      setSearchType(()=>{
+         let newObject = new Object();
+         newObject.type = type;
+         return newObject;
+      })
+   }
+
+   const searchBarInputHandler = (e)=>{
+      let inputCriteria = e.target.value
+      console.log(inputCriteria);
+      setSearchBar(()=>{
+         return inputCriteria;
+      })
+   }
+   const checkKey = (e)=>{
+      console.log(e.key)
+      if(e.key == "Enter"){
+         performSearch();
+      }
+   }
+
+   const performSearch = async ()=>{
+      console.log('Performing search')
+
+      const request = await fetch(`${urlFix}/api/get/search/albums`, {
+         method:"POST",
+         headers: {"Content-Type":"application/json"},
+         body: JSON.stringify({
+            search: searchBar
+         })
+      })
+      const data = await request.json();
+      if(data.message == "success"){
+         console.log("it was successful")
+         setCDArray(()=>{
+            let newArray = new Array();
+            newArray = data.result;
+            return [...newArray];
+         })
+      }  
+   }
+
+   useEffect(()=>{
+
+
+
+
+   },[searchBar])
+
    const logInView = ()=>{        
          
          return <div className="loginContainer" style={{display:"flex", justifyContent:"center", paddingTop:"100px"}}>
@@ -56,13 +109,86 @@ const AccountPage = ({urlFix}) => {
 
    const loggedInView = () =>{
       return <>
-               <div className="d-flex flex-wrap p-2 bd-highlight h-100">
-                  <div className="col-12 h-100 d-inline-block col-md-3 col-lg-2 border border-dark rounded" ></div>
-                  <div className="col-12 col-md-9 col-lg-10 p-5 text-center bg-body-tertiary">
-                  <h1 className="mb-3">Successfully Logged in</h1>
-                  <h2 className="mb-3">Hello, {`${localStorage.getItem('EMAIL')}`}</h2>
-                  <button data-mdb-ripple-init  href={null} role="button" onClick={()=>{logOut();}}>Log Out</button>
-                  </div>   
+               <div className="d-flex flex-column gap-3 p-2 bd-highlight vh-100">
+                  <div className="d-flex justify-content-between">
+                     <div>
+                     <h1 className="mb-3">Successfully Logged in</h1>
+                     <h2 className="mb-3">Hello, {`${localStorage.getItem('EMAIL')}`}</h2>
+                     </div>
+                     <div>
+                        <div>
+                           <button data-mdb-ripple-init  href={null} role="button" onClick={()=>{logOut();}}>Log Out</button></div>
+                        <div className="d-flex gap-4">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="bi bi-cart3" viewBox="0 0 16 16">
+                              <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l.84 4.479 9.144-.459L13.89 4zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                              </svg><h3>{cartCount}</h3>
+                        </div>                     
+                     </div>
+                     
+                     
+                  </div>
+                  <div className="d-flex flex-row">
+                  {(searchType.type =='search') && <div className="d-flex flex-column gap-5 col-12 vh-50 col-md-6 col-lg-4 col-xl-3 p-3 border border-dark rounded" >
+                    {/* <label className="d-flex justify-content-evenly" htmlFor=""><button className="w-25 bg-primary">ARTIST</button><button className="w-25 bg-primary">ALBUM</button><button className="w-25 bg-primary" >BOTH</button></label> */}
+                    <label htmlFor=""><div className="w-100 fs-3 ">SEARCH </div><input className="remh2 w-100 border border-dark rounded p-2" value={searchBar} onChange={(e)=>{searchBarInputHandler(e)}} onKeyUp={(e)=>{ checkKey(e)}} type="text" /> </label>                      
+                    <label htmlFor=""> <button className="w-100" onClick={()=>{ searchButton('newReleases')}}>NEW RELEASES</button></label>
+                    <label htmlFor=""> <button className="w-100" onClick={()=>{ searchButton('topSellers')}}>TOP SELLERS</button></label>
+                    <label htmlFor=""></label>
+                    <label htmlFor=""></label>
+                    <label htmlFor=""></label>
+                    <label htmlFor=""></label>
+                  </div>}                  
+                  {(searchType.type =='newReleases') && <div className="d-flex flex-column gap-5 col-12 vh-50 col-md-6 col-lg-4 col-xl-3 p-3 border border-dark rounded" >
+                    {/* <label className="d-flex justify-content-evenly" htmlFor=""><button className="w-25 bg-primary">ARTIST</button><button className="w-25 bg-primary">ALBUM</button><button className="w-25 bg-primary" >BOTH</button></label> */}
+                                
+                    <label htmlFor=""><div className="w-100 fs-3 ">New Releases </div></label> 
+                                        
+                    <label htmlFor=""> <button className="w-100" onClick={()=>{ searchButton('topSellers')}} >TOP SELLERS</button></label>
+                    <label htmlFor=""> <button className="w-100" onClick={()=>{ searchButton('search')}}>SEARCH</button></label> 
+                    <label htmlFor=""></label>
+                    <label htmlFor=""></label>
+                    <label htmlFor=""></label>
+                    <label htmlFor=""></label>
+                  </div>}
+                  {(searchType.type =='topSellers') && <div className="d-flex flex-column gap-5 col-12 vh-50 col-md-6 col-lg-4 col-xl-3 p-3 border border-dark rounded" >
+                    {/* <label className="d-flex justify-content-evenly" htmlFor=""><button className="w-25 bg-primary">ARTIST</button><button className="w-25 bg-primary">ALBUM</button><button className="w-25 bg-primary" >BOTH</button></label> */}                    
+                    
+                    
+                    <label htmlFor=""><div className="w-100 fs-3 ">Top Sellers</div></label> 
+                    
+                    <label htmlFor=""> <button className="w-100" onClick={()=>{ searchButton('newReleases')}}>NEW RELEASES</button></label>                    
+                    <label htmlFor=""> <button className="w-100" onClick={()=>{ searchButton('search')}}>SEARCH</button></label> 
+                    <label htmlFor=""></label>
+                    <label htmlFor=""></label>
+                    <label htmlFor=""></label>
+                    <label htmlFor=""></label>
+                  </div>}
+                  <div className="col-12 col-md-6 col-lg-8 col-xl-9 text-center bg-body-tertiary vh-90">
+                  <div className="vh-20">
+                     
+                     
+                  </div>                 
+                  <div className="border rounded vh-70 d-flex flex-wrap">
+                     {cdArray.map((cd, num)=>{
+
+                        return <>
+                        <div style={{width:"30%"}}><CDdisplay
+                           artist={cd.artist_name}
+                           album={cd.album_name}
+                           price={cd.album_price}
+                           year={cd.album_year}
+                           
+                           />
+                        </div>
+                           
+                        </>
+                     })}
+                     
+                  </div>
+                  </div> 
+                  </div>
+
+
                </div>
 
                
@@ -156,6 +282,10 @@ const AccountPage = ({urlFix}) => {
 
 
    }
+
+
+
+   
 
 
       return <>

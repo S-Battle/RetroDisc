@@ -28,10 +28,10 @@ const CDdisplay = ({artist, album, price, year}) => {
                 <div className="card-body">
                   {" "}
                   <div className="card-text">
-                   <div>{"Artist"}</div> 
-                    <div>{"Album"}</div>
-                    <div>{"Price"}</div>
-                    <div>{"Year"}</div>
+                   <div>{"Artist: "}{artist}</div> 
+                    <div>{"Album: "}{album}</div>
+                    <div>{"Price: "}{price}</div>
+                    <div>{"Year: "}{year}</div>
                   </div>{" "}
                   <div className="d-flex justify-content-between align-items-center">
                     {" "}

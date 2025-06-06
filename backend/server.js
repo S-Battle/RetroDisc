@@ -187,6 +187,28 @@ console.log(data.rows);
   }
 });
 
+app.post('/api/get/search/albums', async(req, res)=>{
+  const { search } = await req.body
+  const url = "SELECT alb.album_name, art.artist_name, alb.album_price, alb.album_year, alb.album_id " +
+              "FROM album alb " +
+              "INNER JOIN artist art " +
+              "ON art.artist_id = alb.artist_id " +
+              "INNER JOIN genre gen " +
+              "ON gen.genre_id = alb.album_genre " +
+              "WHERE album_name = $1 " +
+              "OR artist_name LIKE $1 " +
+              "or genre_name = $1 ";
+
+  const data = await client.query(url, [search+'%']);
+  console.log(data.rows)
+  if(data.rowCount > 0){
+    res.json({message:'success', result: data.rows })
+  }
+  else{
+    res.json({message:'unsuccessful', result: "NO ALBUMS WERE FOUND"})
+  }
+});
+
 
 
 app.listen(port, () => {
