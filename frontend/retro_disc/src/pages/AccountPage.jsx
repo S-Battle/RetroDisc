@@ -1,4 +1,5 @@
 import React,{useEffect, useState} from "react";
+import { Link, useNavigate } from 'react-router';
 
 
 
@@ -6,6 +7,8 @@ const AccountPage = ({urlFix}) => {
    const [passwordInput, setPasswordInput] = useState("")
    const [emailInput, setEmailInput] = useState("")
    const [loggedIn, setLoggedIn ] = useState(false);
+   const [customerPref, setCustomerPref] = useState([]);
+   const navigate = useNavigate();
    
    
    
@@ -23,6 +26,7 @@ const AccountPage = ({urlFix}) => {
          return newValue;
       })
    }
+
   }/>
   <label htmlFor="inputPassword" className="sr-only">Password</label>
   <input type="password" id="inputPassword" className="form-control" placeholder="Password" required="" value={passwordInput} onChange ={(e)=>{   
@@ -54,7 +58,7 @@ const AccountPage = ({urlFix}) => {
                <div className="p-5 text-center bg-body-tertiary">
                <h1 className="mb-3">Successfully Logged in</h1>
                <h2 className="mb-3">Hello, {`${localStorage.getItem('EMAIL')}`}</h2>
-               <a data-mdb-ripple-init className="btn btn-primary" href="" role="button" onClick={()=>{logOut();}}>Log Out</a>
+               <button data-mdb-ripple-init  href={null} role="button" onClick={()=>{logOut();}}>Log Out</button>
                </div>              
                
             </>
@@ -82,14 +86,16 @@ const AccountPage = ({urlFix}) => {
          console.log("RESPONSE: ",response);
          let data = await response.json();
          if(data.message == "success"){
+            localStorage.setItem('EMAIL', data.email)
             setLoggedIn(()=>{
                return true;
             })
-            localStorage.setItem('EMAIL', data.user)
+            
          }           
       }
-      else{
-         console.log("NO TOKEN FOUND")
+      else{         
+         console.log("NO TOKEN FOUND");
+         logOut();
       }
 
    }
@@ -100,6 +106,10 @@ const AccountPage = ({urlFix}) => {
 
 
    const attemptLogin = async()=>{
+
+      if(emailInput == 'admin'){
+         navigate('/admin');
+      }
 
       const response = await fetch(`${urlFix}/api/login`,{
          method:"POST",
@@ -113,6 +123,7 @@ const AccountPage = ({urlFix}) => {
       console.log(data)
        if(data.message == "success"){
          localStorage.setItem('TOKEN', data.token);
+         localStorage.setItem('EMAIL', data.email)
          setLoggedIn(()=>{
             return true;
          })

@@ -173,6 +173,19 @@ app.post('/api/add/album', async(req, res)=>{
   }
 })
 
+app.get('/api/get/all/albums', async(req, res)=>{
+  const data = await client.query("SELECT album_id, album_name, art.artist_name, gen.genre_name, album_price, album_year  FROM album alb " + 
+                                  "INNER JOIN artist art ON art.artist_id = alb.artist_id INNER JOIN genre gen ON gen.genre_id = alb.album_genre",
+                                );
+console.log(data.rows);
+
+  if(data.rowCount > 0){
+    res.json({message:"success", albums: data.rows});
+  }
+  else{
+    res.json("Sorry, there were no albums")
+  }
+});
 
 
 

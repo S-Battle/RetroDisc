@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage'
 import CartPage from './pages/CartPage'
 import AccountPage from './pages/AccountPage'
 import Navigator from './components/Navigator'
+import AdminPage from './pages/AdminPage'
 
 function App() {
   const urlFix = "http://localhost:3000";
@@ -24,7 +25,9 @@ function App() {
       <Route path="/cart" element={ < CartPage/>} />
       <Route path='/account' element={<AccountPage
         urlFix={urlFix}
-      />} />      
+      />} /> 
+      <Route path='/admin' element={<AdminPage 
+      urlFix={urlFix}/>}/>    
     </Routes>
     </>
       
