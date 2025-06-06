@@ -9,16 +9,18 @@ const AdminPage = ({urlFix}) => {
     const [priceInput, setPriceInput] = useState("");
     const [genreInput, setGenreInput] = useState("");
     const [yearInput, setYearInput] = useState("");
-    const [allAlbums, setAllAlbums] = useState([ "fake album", "fake album 2", "fake album 3" ]);
+    const [allAlbums, setAllAlbums] = useState([]);
+    
+
     const allAlbumsView = ()=>{
 
         return <>
         <div style={{width:'60vw', border:"2px solid black", height: "60vh", overflow:"auto"}}>
             {
                  allAlbums.map((album, num)=>{
-                   return <>
-                   <div>{album.album_name } {album.artist_name} {album.album_year} {album.genre_name} {album.album_price}</div>
-                </>} 
+                   return <div key={num}>
+                   <div className="d-flex justify-content-sm-center flex-row align-content-sm-center align-items-sm-center   flex-wrap border border-dark rounded" ><div className="col-xxl-2 col-lg-4 text-sm-center text-center col-sm-12 col-12 col-md-6 text-md-start p-2 flex-fill bd-highlight">Name: {album.album_name }</div> <div className="col-xxl-2  col-12 text-sm-center col-lg-4 col-sm-12 col-md-6 text-center text-md-start p-2 flex-fill bd-highlight" >Artist: {album.artist_name}</div> <div className="col-xxl-2  text-sm-center col-12 col-lg-4 col-md-6 col-sm-12 text-center text-md-start  p-2 flex-fill bd-highlight"  >YEAR: {album.album_year}</div> <div  className="col-xxl-2  col-12 col-lg-4 col-md-6 col-sm-12  text-center text-sm-center text-md-start p-2 flex-fill bd-highlight"  >GENRE: {album.genre_name}</div> <div  className="col-xxl-2  col-12 col-lg-4 col-md-6 col-sm-12  text-center  text-sm-center text-md-start  p-2 flex-fill bd-highlight"  >PRICE: ${album.album_price}</div></div>
+                </div>} 
                 )     
             }
               
