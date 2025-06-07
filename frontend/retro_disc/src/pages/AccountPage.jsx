@@ -4,16 +4,13 @@ import CDdisplay from "../components/CDdisplay";
 
 
 
-const AccountPage = ({urlFix}) => {
+const AccountPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount, searchBar, setSearchBar}) => {
    const [passwordInput, setPasswordInput] = useState("")
    const [emailInput, setEmailInput] = useState("")
    const [loggedIn, setLoggedIn ] = useState(false);
    const [customerPref, setCustomerPref] = useState([]);
-   const navigate = useNavigate();
-   const [cartItems, setCartItems] = useState([]);
+   const navigate = useNavigate();   
    const [searchType, setSearchType] = useState({type:"search"})
-   const [cartCount, setCartCount ] = useState(0);   
-   const [searchBar, setSearchBar ] = useState("");
    const [cdArray, setCDArray ] = useState([]);
    
    const searchButton = (type)=>{
@@ -127,8 +124,8 @@ const AccountPage = ({urlFix}) => {
                      
                      
                   </div>
-                  <div className="d-flex flex-row">
-                  {(searchType.type =='search') && <div className="d-flex flex-column gap-5 col-12 vh-50 col-md-6 col-lg-4 col-xl-3 p-3 border border-dark rounded" >
+                  <div className="d-flex flex-column  flex-xl-row">
+                  {(searchType.type =='search') && <div className="d-flex flex-column gap-5 col-12 vh-50  col-xl-3 p-3 border border-dark rounded" >
                     {/* <label className="d-flex justify-content-evenly" htmlFor=""><button className="w-25 bg-primary">ARTIST</button><button className="w-25 bg-primary">ALBUM</button><button className="w-25 bg-primary" >BOTH</button></label> */}
                     <label htmlFor=""><div className="w-100 fs-3 ">SEARCH </div><input className="remh2 w-100 border border-dark rounded p-2" value={searchBar} onChange={(e)=>{searchBarInputHandler(e)}} onKeyUp={(e)=>{ checkKey(e)}} type="text" /> </label>                      
                     <label htmlFor=""> <button className="w-100" onClick={()=>{ searchButton('newReleases')}}>NEW RELEASES</button></label>
@@ -138,7 +135,7 @@ const AccountPage = ({urlFix}) => {
                     <label htmlFor=""></label>
                     <label htmlFor=""></label>
                   </div>}                  
-                  {(searchType.type =='newReleases') && <div className="d-flex flex-column gap-5 col-12 vh-50 col-md-6 col-lg-4 col-xl-3 p-3 border border-dark rounded" >
+                  {(searchType.type =='newReleases') && <div className="d-flex flex-column gap-5 col-12 vh-50  col-xl-3 p-3 border border-dark rounded" >
                     {/* <label className="d-flex justify-content-evenly" htmlFor=""><button className="w-25 bg-primary">ARTIST</button><button className="w-25 bg-primary">ALBUM</button><button className="w-25 bg-primary" >BOTH</button></label> */}
                                 
                     <label htmlFor=""><div className="w-100 fs-3 ">New Releases </div></label> 
@@ -150,7 +147,7 @@ const AccountPage = ({urlFix}) => {
                     <label htmlFor=""></label>
                     <label htmlFor=""></label>
                   </div>}
-                  {(searchType.type =='topSellers') && <div className="d-flex flex-column gap-5 col-12 vh-50 col-md-6 col-lg-4 col-xl-3 p-3 border border-dark rounded" >
+                  {(searchType.type =='topSellers') && <div className="d-flex flex-column gap-5 col-12 vh-50  col-xl-3 p-3 border border-dark rounded" >
                     {/* <label className="d-flex justify-content-evenly" htmlFor=""><button className="w-25 bg-primary">ARTIST</button><button className="w-25 bg-primary">ALBUM</button><button className="w-25 bg-primary" >BOTH</button></label> */}                    
                     
                     
@@ -163,20 +160,17 @@ const AccountPage = ({urlFix}) => {
                     <label htmlFor=""></label>
                     <label htmlFor=""></label>
                   </div>}
-                  <div className="col-12 col-md-6 col-lg-8 col-xl-9 text-center bg-body-tertiary vh-90">
-                  <div className="vh-20">
-                     
-                     
-                  </div>                 
+                  <div className="col-12 col-xl-9 text-center bg-body-tertiary vh-90">                                 
                   <div className="border rounded vh-70 d-flex flex-wrap">
                      {cdArray.map((cd, num)=>{
 
                         return <>
-                        <div style={{width:"30%"}}><CDdisplay
+                        <div style={{width:"33%"}}><CDdisplay
                            artist={cd.artist_name}
                            album={cd.album_name}
                            price={cd.album_price}
                            year={cd.album_year}
+                           id={cd.album_id}
                            
                            />
                         </div>

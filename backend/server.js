@@ -195,14 +195,19 @@ app.post('/api/get/search/albums', async(req, res)=>{
               "ON art.artist_id = alb.artist_id " +
               "INNER JOIN genre gen " +
               "ON gen.genre_id = alb.album_genre " +
-              "WHERE album_name = $1 " +
-              "OR artist_name LIKE $1 " +
-              "or genre_name = $1 ";
+              "WHERE album_name LIKE $1 " +
+              "OR art.artist_name LIKE $1 " +
+              "or gen.genre_name LIKE $1 ";
 
   const data = await client.query(url, [search+'%']);
   console.log(data.rows)
+  const findImage = async ()=>{    
+    console.log("find image");
+    return "/location/of/image/"
+  }
+  let cdImage = findImage();
   if(data.rowCount > 0){
-    res.json({message:'success', result: data.rows })
+    res.json({message:'success', result: data.rows , image: cdImage })
   }
   else{
     res.json({message:'unsuccessful', result: "NO ALBUMS WERE FOUND"})

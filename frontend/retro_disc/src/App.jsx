@@ -8,6 +8,9 @@ import Navigator from './components/Navigator'
 import AdminPage from './pages/AdminPage'
 
 function App() {
+  const [cartItems, setCartItems] = useState([]);
+  const [cartCount, setCartCount ] = useState(0);   
+  const [searchBar, setSearchBar ] = useState("");
   const urlFix = "http://localhost:3000";
  
 
@@ -21,13 +24,33 @@ function App() {
     </Navigator>
 
     <Routes>
-      <Route path="/" element={<HomePage />}/>
+      <Route path="/" element={<HomePage
+      cartItems={cartItems} 
+        setCartItems={setCartItems}
+        cartCount={cartCount} 
+        setCartCount={setCartCount}
+        searchBar={searchBar}
+        setSearchBar={setSearchBar} />}/>
+
       <Route path="/cart" element={ < CartPage/>} />
+
       <Route path='/account' element={<AccountPage
         urlFix={urlFix}
+        cartItems={cartItems} 
+        setCartItems={setCartItems}
+        cartCount={cartCount} 
+        setCartCount={setCartCount}
+        searchBar={searchBar}
+        setSearchBar={setSearchBar}
       />} /> 
       <Route path='/admin' element={<AdminPage 
-      urlFix={urlFix}/>}/>    
+      urlFix={urlFix}/>}/>
+      cartItems={cartItems} 
+        setCartItems={setCartItems}
+        cartCount={cartCount} 
+        setCartCount={setCartCount}
+        searchBar={searchBar}
+        setSearchBar={setSearchBar}    
     </Routes>
     </>
       
