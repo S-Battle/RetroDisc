@@ -210,6 +210,18 @@ app.post('/api/get/search/albums', async(req, res)=>{
 });
 
 
+app.get('/api/get/all/users', async(req, res)=>{
+  const data = await client.query("SELECT user_id, email FROM users",);
+                                
+console.log(data.rows);
+
+  if(data.rowCount > 0){
+    res.json({message:"success", users: data.rows});
+  }
+  else{
+    res.json("Sorry, there were no users")
+  }
+});
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

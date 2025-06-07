@@ -10,7 +10,26 @@ const AdminPage = ({urlFix}) => {
     const [genreInput, setGenreInput] = useState("");
     const [yearInput, setYearInput] = useState("");
     const [allAlbums, setAllAlbums] = useState([]);
+    const [allUsers, setAllUsers] = useState([]);
     
+    const allUsersView = () => {
+            return (
+                <div style={{width:'60vw', border:"2px solid black", height: "60vh", overflow:"auto"}}>
+                    {/* <h1>ALL USERS</h1> */}
+                    {
+                        allUsers.map((user, index) => (
+                            <div key={index} style={{borderBottom: "1px solid grey", padding: "10px"}}>
+                                <div><strong>User ID:</strong> {user.user_id}</div>
+                                <div><strong>Email:</strong> {user.email}</div>
+                            </div>
+                        ))
+                    }
+                </div>
+            );
+        };
+
+
+
 
     const allAlbumsView = ()=>{
 
@@ -55,7 +74,15 @@ const AdminPage = ({urlFix}) => {
     }
 
     
-
+    const getAllUsers = async () => {
+        try {
+            const response = await fetch(`${urlFix}/api/get/all/users`);
+            const data = await response.json();
+            setAllUsers(data.users); 
+        } catch (err) {
+            console.error("Error fetching users:", err);
+        }
+    };
 
 
 
@@ -110,7 +137,11 @@ const AdminPage = ({urlFix}) => {
                              }}>GET ALBUMS</button>
                              {addedAlbumView()}
                              {allAlbumsView()}
-                             
+                             <button onClick={()=>{
+                                getAllUsers();
+                             }}>GET USERS</button>
+                                {allUsersView()}
+                             <></>
 
                             </div>
 
