@@ -1,6 +1,89 @@
 import React, {useEffect, useState} from  "react";
 import CDdisplay from "../components/CDdisplay";
+// import { useNavigate } from "react-router";
 
+
+// function Albums() {
+//   const [albums, setalbums] = useState([]);
+//   const navigate = useNavigate();
+//   const [searchTerm, setSearchTerm] = useState('');
+
+//   useEffect(() => {
+//     async function fetchAlbums() {
+//       try {
+//         const response = await fetch("http://localhost:3000/api/get/all/albums");
+//         const result = await response.json();
+
+//         if (Array.isArray(result)) {
+//           setAlbums(result);
+//         } else if (result.albums) {
+//           setAlbums(result.albums);
+//         } else {
+//           console.error("Unexpected albums API response:", result);
+//         }
+//       } catch (error) {
+//         console.error("Error fetching albums:", error);
+//       }
+//     }
+//     fetchAlbums();
+//   }, []);
+
+//   const filteredAlbums = albums.filter((album) =>
+//     `${album.title} ${album.artist}`.toLowerCase().includes(searchTerm.toLowerCase())
+//   );
+
+//   if (!albums || albums.length === 0) {
+//     return <div>Loading albums or none found...</div>;
+//   }
+
+
+//   return (<main style={{ padding: '16px' }}>
+//     {/* Search Bar */}
+//     <div style={{ marginBottom: '20px' }}>
+//       <input
+//         type="text"
+//         placeholder="Search by title or author..."
+//         value={searchTerm}
+//         onChange={(e) => setSearchTerm(e.target.value)}
+//         style={{
+//           width: '100%',
+//           maxWidth: '400px',
+//           padding: '10px',
+//           fontSize: '1em',
+//           border: '1px solid #ccc',
+//             borderRadius: '6px'
+//         }}
+//       />
+//     </div>
+//  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', padding: '16px' }}>
+//    {filteredAlbums.map((album) => (
+//      <div
+//        key={album.id}
+//        onClick={() => navigate(`/album/${album.id}`)}
+//        style={{
+//          width: '180px',
+//          border: '1px solid #ccc',
+//          borderRadius: '8px',
+//          padding: '12px',
+//          cursor: 'pointer',
+//          textAlign: 'center'
+//        }}
+//      >
+//        <h4>{album.title}</h4>
+//        <p style={{ fontSize: '0.9em' }}>{album.artist}</p>
+//        {album.coverimage && (
+//          <img
+//            src={album.coverimage}
+//            alt={album.title}
+//            style={{ width: '100%', height: 'auto', borderRadius: '4px' }}
+//          />
+//        )}
+//      </div>
+//    ))}
+//  </div>
+//  </main>
+// );
+// }
 
 
 const HomePage = () => {
