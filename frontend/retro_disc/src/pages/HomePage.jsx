@@ -3,7 +3,7 @@ import CDdisplay from "../components/CDdisplay";
 
 
 
-const HomePage = () => {
+const HomePage = ({createCart, setCartItems, cartCount, setCartCount, searchBar, setSearchBar}) => {
     let carouselArray = ['hiphopimg.jpg', 'countryimg.jpg', 'jazzimg.jpg', 'rnbimg.jpg', 'rockandrollimg.webp'];
     const [featuredAlbums, setFeaturedAlbums ] = useState([]);
     const [carouselImage, setCarouselImage] = useState(`${carouselArray[0]}`);
@@ -12,10 +12,17 @@ const HomePage = () => {
     let carNum = 0;
     const urlFix = 'http://localhost:3000';
 
+    useEffect( ()=>{
+          createCart();
+       },[])
+
     useEffect(() => {
       const getApi = async () => {      
         let response = await fetch(`${urlFix}/api`);
         console.log(response);
+        setFeaturedAlbums(()=>{
+          return 43;
+        })
       };
       getApi();
     }, []);
