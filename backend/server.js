@@ -195,24 +195,46 @@ app.post('/api/get/search/albums', async(req, res)=>{
               "ON art.artist_id = alb.artist_id " +
               "INNER JOIN genre gen " +
               "ON gen.genre_id = alb.album_genre " +
-              "WHERE album_name LIKE $1 " +
-              "OR art.artist_name LIKE $1 " +
-              "or gen.genre_name LIKE $1 ";
+              "WHERE LOWER(album_name) LIKE LOWER($1) " +
+              "OR LOWER(art.artist_name) LIKE LOWER($1) " +
+              "OR LOWER(gen.genre_name) LIKE LOWER($1) ";
 
-  const data = await client.query(url, [search+'%']);
+  const data = await client.query(url, ['%'+search+'%']);
   console.log(data.rows)
-  const findImage = async ()=>{    
-    console.log("find image");
-    return "/location/of/image/"
-  }
-  let cdImage = findImage();
+  // const findImage = async ()=>{    
+  //   console.log("find image");
+  //   return "/location/of/image/"
+  // }
+  // let cdImage = findImage();
   if(data.rowCount > 0){
-    res.json({message:'success', result: data.rows , image: cdImage })
+    res.json({message:'success', result: data.rows })
   }
   else{
     res.json({message:'unsuccessful', result: "NO ALBUMS WERE FOUND"})
   }
 });
+
+app.get('/api/get/new/releases', async (req, res)=>{
+  let number = 9;
+  const url = "SELECT alb.album_name, art.artist_name, alb.album_price, alb.album_year, alb.album_id " +
+              "FROM album alb " +
+              "INNER JOIN artist art " +
+              "ON art.artist_id = alb.artist_id " +
+              "INNER JOIN genre gen " +
+              "ON gen.genre_id = alb.album_genre " +
+              "ORDER BY alb.album_year DESC " +
+              "LIMIT $1";
+  const data = await client.query(url, [number]);
+  console.log(data.rows)
+  if(data.rowCount > 0){
+    res.json({message:'success', result: data.rows})
+  }
+  else{
+    res.json({message:'unsuccessful', result: "NO ALBUMS WERE FOUND"})
+  }
+
+
+})
 
 
 app.get('/api/get/all/users', async(req, res)=>{

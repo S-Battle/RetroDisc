@@ -1,4 +1,4 @@
-import React from  "react";
+import React, { useEffect } from  "react";
 
 
 
@@ -13,6 +13,30 @@ const CDdisplay = ({artist, album, price, year, id, cartItems, setCartItems, car
           }
           finishedName = "/album art/" + finishedName
           console.log(finishedName);
+
+          const addToCart = ((e)=>{           
+            let albumString = e.target.attributes.album_info.nodeValue;
+            let albumArray = albumString.split("*");           //let newAlbumObject = new Object();
+           
+            setCartItems((prev)=>{  
+              localStorage.setItem("CART", [...cartItems,...albumArray])
+              return [...prev, albumArray];
+            })
+
+          })
+          useEffect(()=>{
+          const addNumber = ()=>{
+            setCartCount((prev)=>{
+              let newNumber = cartItems.length;
+              return newNumber;
+            })            
+          }
+          addNumber();
+
+          },[cartItems])
+         
+          
+          
           
           return (
             <>
@@ -30,9 +54,11 @@ const CDdisplay = ({artist, album, price, year, id, cartItems, setCartItems, car
                     {" "}
                     <div className="btn-group d-flex align-content-start h-100">    
                       
-                      <button album_id={id}
+                      <button album_id={id} album_info={id+"*"+artist +"*"+album +"*"+price+"*"+year}
                         type="button"
-                        className="btn btn-sm btn-outline-secondary align-self-end remh4 rounded"
+                        className="btn btn-sm btn-outline-secondary align-self-end remh4 rounded" onClick={(e)=>{
+                          addToCart(e);
+                        }}
                       >
                         Add to Cart
                       </button>{" "}

@@ -4,7 +4,7 @@ import CDdisplay from "../components/CDdisplay";
 
 
 
-const AccountPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount, searchBar, setSearchBar}) => {
+const AccountPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount, searchBar, setSearchBar, createCart}) => {
    const [passwordInput, setPasswordInput] = useState("")
    const [emailInput, setEmailInput] = useState("")
    const [loggedIn, setLoggedIn ] = useState(false);
@@ -12,7 +12,47 @@ const AccountPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount, 
    const navigate = useNavigate();   
    const [searchType, setSearchType] = useState({type:"search"})
    const [cdArray, setCDArray ] = useState([]);
+
+
+   const getNewReleases = async () =>{
+      const request = await fetch(`${urlFix}/api/get/new/releases`);
+      const data = await request.json()
+      console.log(data)
+
+      setCDArray(()=>{
+         
+         return [...data.result]
+      })
+
+   }
    
+   useEffect( ()=>{
+      createCart();
+   },[])
+
+   useEffect(()=>{
+      const getAllAlbums = async ()=>{
+         let request = await fetch(`${urlFix}/api/get/all/albums`);
+         const data = await request.json();
+         let newArray = await data.albums;    
+         console.log("NEW ARRAY: ", newArray)    
+         setCDArray(()=>{
+            return [...newArray];
+         })
+      }
+      getAllAlbums();
+   },[])
+
+   useEffect(()=>{
+          const addNumber = ()=>{
+            setCartCount((prev)=>{
+              let newNumber = cartItems.length;
+              return newNumber;
+            })            
+          }
+          addNumber();
+   },[cartItems])
+
    const searchButton = (type)=>{
       setSearchType(()=>{
          let newObject = new Object();
@@ -127,8 +167,8 @@ const AccountPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount, 
                   <div className="d-flex flex-column  flex-xl-row">
                   {(searchType.type =='search') && <div className="d-flex flex-column gap-5 col-12 vh-50  col-xl-3 p-3 border border-dark rounded" >
                     {/* <label className="d-flex justify-content-evenly" htmlFor=""><button className="w-25 bg-primary">ARTIST</button><button className="w-25 bg-primary">ALBUM</button><button className="w-25 bg-primary" >BOTH</button></label> */}
-                    <label htmlFor=""><div className="w-100 fs-3 ">SEARCH </div><input className="remh2 w-100 border border-dark rounded p-2" value={searchBar} onChange={(e)=>{searchBarInputHandler(e)}} onKeyUp={(e)=>{ checkKey(e)}} type="text" /> </label>                      
-                    <label htmlFor=""> <button className="w-100" onClick={()=>{ searchButton('newReleases')}}>NEW RELEASES</button></label>
+                    <label htmlFor=""><div className="w-100 fs-3 ">SEARCH </div><input className="remh2 w-100 border border-dark rounded p-2" defaultValue="Album, Artist, Genre, ...press enter" value={searchBar} onChange={(e)=>{searchBarInputHandler(e)}} onKeyUp={(e)=>{ checkKey(e)}} type="text" /> </label>                      
+                    <label htmlFor=""> <button className="w-100" onClick={()=>{ searchButton('newReleases'); getNewReleases();}}>NEW RELEASES</button></label>
                     <label htmlFor=""> <button className="w-100" onClick={()=>{ searchButton('topSellers')}}>TOP SELLERS</button></label>
                     <label htmlFor=""></label>
                     <label htmlFor=""></label>
@@ -153,7 +193,7 @@ const AccountPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount, 
                     
                     <label htmlFor=""><div className="w-100 fs-3 ">Top Sellers</div></label> 
                     
-                    <label htmlFor=""> <button className="w-100" onClick={()=>{ searchButton('newReleases')}}>NEW RELEASES</button></label>                    
+                    <label htmlFor=""> <button className="w-100" onClick={()=>{ searchButton('newReleases'); getNewReleases();}}>NEW RELEASES</button></label>                    
                     <label htmlFor=""> <button className="w-100" onClick={()=>{ searchButton('search')}}>SEARCH</button></label> 
                     <label htmlFor=""></label>
                     <label htmlFor=""></label>
@@ -171,6 +211,10 @@ const AccountPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount, 
                            price={cd.album_price}
                            year={cd.album_year}
                            id={cd.album_id}
+                           cartItems={cartItems}
+                           setCartItems={setCartItems}
+                           cartCount={cartCount}
+                           setCartCount={setCartCount}
                            
                            />
                         </div>

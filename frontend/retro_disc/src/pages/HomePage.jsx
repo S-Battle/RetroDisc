@@ -2,30 +2,58 @@ import React, { useEffect, useState } from "react";
 import CDdisplay from "../components/CDdisplay";
 // import { useNavigate } from "react-router";
 
-// function Albums() {
-//   const [albums, setalbums] = useState([]);
-//   const navigate = useNavigate();
-//   const [searchTerm, setSearchTerm] = useState('');
 
-//   useEffect(() => {
-//     async function fetchAlbums() {
-//       try {
-//         const response = await fetch("http://localhost:3000/api/get/all/albums");
-//         const result = await response.json();
+const HomePage = ({createCart, setCartItems, cartCount, setCartCount, searchBar, setSearchBar}) => {
+    let carouselArray = ['hiphopimg.jpg', 'countryimg.jpg', 'jazzimg.jpg', 'rnbimg.jpg', 'rockandrollimg.webp'];
+    const [featuredAlbums, setFeaturedAlbums ] = useState([]);
+    const [carouselImage, setCarouselImage] = useState(`${carouselArray[0]}`);
+    const [carouselNumber, setCarouselNumber] = useState(0);
+    
+    let carNum = 0;
+    const urlFix = 'http://localhost:3000';
 
-//         if (Array.isArray(result)) {
-//           setAlbums(result);
-//         } else if (result.albums) {
-//           setAlbums(result.albums);
-//         } else {
-//           console.error("Unexpected albums API response:", result);
-//         }
-//       } catch (error) {
-//         console.error("Error fetching albums:", error);
-//       }
-//     }
-//     fetchAlbums();
-//   }, []);
+    useEffect( ()=>{
+          createCart();
+       },[])
+
+    useEffect(() => {
+      const getApi = async () => {      
+        let response = await fetch(`${urlFix}/api`);
+        console.log(response);
+        setFeaturedAlbums(()=>{
+          return 43;
+        })
+      };
+      getApi();
+    }, []);
+
+    const newCarouselImg = ()=>{
+      setCarouselNumber((prev)=>{
+         return prev + 1;
+      })
+      console.log(carouselNumber);
+      setCarouselImage(()=>{         
+         return `${carouselArray[ carouselNumber % carouselArray.length ]}`
+      })
+    }   
+
+    useEffect(()=>{
+      const doTheThang = async ()=>{
+         setInterval(()=>{
+            setCarouselNumber((prev)=>{
+               let newNumber = prev + 1;
+               return newNumber;
+            }) 
+            setCarouselImage(()=>{
+               let newValue = carouselArray[carouselNumber % carouselArray.length];
+               return newValue;
+            })           
+         }, 10000)}
+      doTheThang();      
+    }, [])
+
+
+
 
 //   const filteredAlbums = albums.filter((album) =>
 //     `${album.title} ${album.artist}`.toLowerCase().includes(searchTerm.toLowerCase())

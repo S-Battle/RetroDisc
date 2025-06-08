@@ -6,12 +6,42 @@ import CartPage from './pages/CartPage'
 import AccountPage from './pages/AccountPage'
 import Navigator from './components/Navigator'
 import AdminPage from './pages/AdminPage'
+import CheckoutPage from './pages/CheckoutPage'
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
   const [cartCount, setCartCount ] = useState(0);   
   const [searchBar, setSearchBar ] = useState("");
   const urlFix = "http://localhost:3000";
+
+  const createCart = ()=>{
+    if(localStorage.getItem("CART") == ""){
+      setCartItems(()=>{
+        return [];
+      })
+      return;
+    }
+    if (localStorage.getItem("CART") != null ){
+    let localStorArray = localStorage.getItem("CART");
+    localStorArray = localStorArray.split(",");
+    console.log(localStorArray)
+    
+    let newArray = new Array();
+    for(let i = 0; i < localStorArray.length/5 ; i++){
+      let albumArray = new Array();
+      for(let j = 0; j < 5; j++){
+        albumArray.push(localStorArray[(i*5)+j])
+      }
+      newArray.push(albumArray);
+    }
+    setCartItems(()=>{
+      return [...newArray]
+    })
+    console.log(newArray)
+    }
+
+    
+  }
  
 
   return (
@@ -30,7 +60,10 @@ function App() {
         cartCount={cartCount} 
         setCartCount={setCartCount}
         searchBar={searchBar}
-        setSearchBar={setSearchBar} />}/>
+        setSearchBar={setSearchBar} 
+        createCart={createCart}
+        
+        />}/>
 
       <Route path="/cart" element={ < CartPage/>} />
 
@@ -42,15 +75,28 @@ function App() {
         setCartCount={setCartCount}
         searchBar={searchBar}
         setSearchBar={setSearchBar}
+        createCart={createCart}
       />} /> 
       <Route path='/admin' element={<AdminPage 
-      urlFix={urlFix}/>}/>
-      cartItems={cartItems} 
+        urlFix={urlFix}
+        cartItems={cartItems} 
         setCartItems={setCartItems}
         cartCount={cartCount} 
         setCartCount={setCartCount}
         searchBar={searchBar}
-        setSearchBar={setSearchBar}    
+        setSearchBar={setSearchBar}
+        createCart={createCart}  
+        />}/>
+        <Route path='/checkout' element={<CheckoutPage 
+        urlFix={urlFix}
+        cartItems={cartItems} 
+        setCartItems={setCartItems}
+        cartCount={cartCount} 
+        setCartCount={setCartCount}
+        searchBar={searchBar}
+        setSearchBar={setSearchBar}
+        createCart={createCart}  
+        />}/>
     </Routes>
     </>
       
