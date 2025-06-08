@@ -237,6 +237,41 @@ app.get('/api/get/new/releases', async (req, res)=>{
 })
 
 
+app.get('/api/get/all/users', async(req, res)=>{
+  const data = await client.query("SELECT user_id, email FROM users",);
+                                
+console.log(data.rows);
+
+  if(data.rowCount > 0){
+    res.json({message:"success", users: data.rows});
+  }
+  else{
+    res.json("Sorry, there were no users")
+  }
+});
+
+app.get('/api/album/random', async (req, res) => {
+  try {
+      const result = await client.query(`
+            SELECT alb.album_name, art.artist_name, alb.album_price, alb.album_year, alb.album_id  
+              FROM album alb 
+              INNER JOIN artist art 
+              ON art.artist_id = alb.artist_id 
+              INNER JOIN genre gen
+              ON gen.genre_id = alb.album_genre
+          ORDER BY RANDOM()
+          LIMIT 15;
+      `);
+      console.log(result.rows);
+      res.json({ album: result.rows });
+      
+  } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
