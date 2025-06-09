@@ -12,7 +12,7 @@ const CDdisplay = ({artist, album, price, year, id, cartItems, setCartItems, car
             finishedName = finishedName + newNameArray[i]
           }
           finishedName = "/album art/" + finishedName
-          console.log(finishedName);
+          
 
           const addToCart = ((e)=>{           
             let albumString = e.target.attributes.album_info.nodeValue;

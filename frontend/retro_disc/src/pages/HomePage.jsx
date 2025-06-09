@@ -14,8 +14,8 @@ const HomePage = ({cartItems, setCartItems, cartCount, setCartCount}) => {
   const [featuredAlbums, setFeaturedAlbums] = useState([]);
   const [carouselImage, setCarouselImage] = useState(`${carouselArray[0]}`);
   const [carouselNumber, setCarouselNumber] = useState(0);
+  let passedNumber = 0;  
   
-  let carNum = 0;
   const urlFix = "http://localhost:3000";
 
   useEffect(() => {
@@ -39,31 +39,57 @@ const HomePage = ({cartItems, setCartItems, cartCount, setCartCount}) => {
     fetchFeaturedAlbums();
   }, []);
 
-  const newCarouselImg = () => {
-    setCarouselNumber((prev) => {
-      return prev + 1;
-    });
-    console.log(carouselNumber);
-    setCarouselImage(() => {
-      return `${carouselArray[carouselNumber % carouselArray.length]}`;
-    });
-  };
+  // const newCarouselImg = () => {
+  //   setCarouselNumber((prev) => {
+  //     return prev + 1;
+  //   });
+  //   console.log(carouselNumber);
+  //   setCarouselImage(() => {
+  //     return `${carouselArray[carouselNumber % carouselArray.length]}`;
+  //   });
+  // };
+
+
+  function startCarousel(){
+
+    passedNumber ++;
+    changeCarouselImage(passedNumber);
+  }
+                              
 
   useEffect(() => {
-    const doTheThang = async () => {
-      setInterval(() => {
-        setCarouselNumber((prev) => {
-          let newNumber = prev + 1;
-          return newNumber;
-        });
-        setCarouselImage(() => {
-          let newValue = carouselArray[carouselNumber % carouselArray.length];
-          return newValue;
-        });
-      }, 10000);
+    
+     const doTheThang = async () => { 
+     clearInterval(startCarousel)
+      setInterval(startCarousel, 10000);      
     };
+
     doTheThang();
   }, []);
+          
+  const changeCarouselImage = (newNumber)=>{
+
+      setCarouselImage(() => {
+                let newValue = carouselArray[newNumber % carouselArray.length];                
+                console.log(newNumber)               
+                return newValue;
+              });                       
+      
+
+
+
+
+
+
+
+  }
+
+
+
+
+
+
+
 
   return (
     <>
@@ -205,9 +231,9 @@ const HomePage = ({cartItems, setCartItems, cartCount, setCartCount}) => {
                 </>
               })}
               
-            </div>{" "}
-          </div>{" "}
-        </div>{" "}
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );
