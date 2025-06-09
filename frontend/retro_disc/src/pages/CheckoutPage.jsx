@@ -23,13 +23,29 @@ const CheckoutPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount,
                                 <div className="border  col-12 col-lg-4">
                                     <h1 className="p-5">RETRO DISC</h1>
                                     <div className="d.flex flex-column p-5 ">
-                                        <div className="w-100" ><label className="w-50" htmlFor=""><div>Address</div> <input className="rounded border-dark" style={{width:"400px"}} type="text" /></label></div>
+                                        <div className="w-100" ><label className="w-50" htmlFor=""><div>Address</div> <input className="rounded border-dark" style={{width:"400px"}} onChange={(e)=>{
+                                            setAddressInput(()=>{
+                                                return e.target.value
+                                            }) 
+                                        }}  value={addressInput} type="text" /></label></div>
                                         <br />
-                                        <div><label htmlFor=""><div>City</div><input className="rounded border-dark" type="text" /></label></div>
+                                        <div><label htmlFor=""><div>City</div><input className="rounded border-dark" value={cityInput} onChange={(e)=>{
+                                            setCityInput(()=>{
+                                                return e.target.value
+                                            })
+                                        }} type="text" /></label></div>
                                         <br />
-                                        <div><label htmlFor=""><div>State</div><input className="rounded border-dark" type="text" /></label></div>
+                                        <div><label htmlFor=""><div>State</div><input className="rounded border-dark" value={stateInput} onChange={(e)=>{
+                                            setStateInput(()=>{
+                                                return e.target.value
+                                            })
+                                        }} type="text" /></label></div>
                                         <br />
-                                        <div><label htmlFor=""><div>Zip</div><input className="rounded border-dark" type="number" /></label></div>
+                                        <div><label htmlFor=""><div>Zip</div><input className="rounded border-dark" value={zipInput} onChange={(e)=>{
+                                            setZipInput(()=>{
+                                                return e.target.value
+                                            })
+                                        }} type="number" /></label></div>
                                     </div>
                                 </div>
                                 <div className="border col-12 col-lg-8 overflow-auto d-flex flex-column justify-content-start align-content-center align-items-center align-items-lg-end align-content-lg-end justify-content-lg-start justify-content-center">
