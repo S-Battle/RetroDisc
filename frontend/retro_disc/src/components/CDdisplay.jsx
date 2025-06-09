@@ -3,9 +3,12 @@ import React, { useEffect } from  "react";
 
 
 const CDdisplay = ({artist, album, price, year, id, cartItems, setCartItems, cartCount, setCartCount }) => {
-
-
-          let newName = `${artist.toLowerCase()}_${album.toLowerCase()}${year}.jpg`;
+          
+          let newArtistName = artist;
+          if(newArtistName.indexOf("/") != -1){
+            newArtistName = artist.replace("/", "");
+          };          
+          let newName = `${newArtistName.toLowerCase()}_${album.toLowerCase()}${year}.jpg`;
           let newNameArray = newName.split(" ");
           let finishedName = "";
           for(let i = 0; i < newNameArray.length; i++){

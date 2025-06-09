@@ -69,3 +69,25 @@ body,
   width: 4rem;
 }
 
+.gradient-background {
+  background: linear-gradient(300deg, #f1e0e8, #5f5f58, #d63ca3);
+  background-size: 180% 180%;
+  animation: gradient-animation 18s ease infinite;
+}
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.bg_grey{
+  background-color: grey;
+}
+

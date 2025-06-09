@@ -23,13 +23,13 @@ const Navigator = () => {
         <li className="nav-item">
           <Link className="nav-link" href="#" to="/account" >Account</Link>
         </li>
-        <li className="nav-item">
+        {/* <li className="nav-item">
           <Link className="nav-link" href="#"  to="/cart" >Cart</Link>
-        </li>
+        </li> */}
         <li className="nav-item">
-          <Link className="nav-link" href="#"  to="/checkout" >Checkout</Link>
+          <Link className="nav-link" href="#"  to="/checkout" >Cart</Link>
         </li>
-        <li className="nav-item dropdown">
+        {/* <li className="nav-item dropdown">
           <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Dropdown link
           </a>
@@ -38,7 +38,7 @@ const Navigator = () => {
             <li><a className="dropdown-item" href="#">Another action</a></li>
             <li><a className="dropdown-item" href="#">Something else here</a></li>
           </ul>
-        </li>
+        </li> */}
       </ul>
     </div>
   </div>

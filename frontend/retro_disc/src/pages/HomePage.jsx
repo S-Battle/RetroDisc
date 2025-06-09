@@ -8,8 +8,16 @@ const HomePage = ({cartItems, setCartItems, cartCount, setCartCount}) => {
     "hiphopimg.jpg",
     "countryimg.jpg",
     "jazzimg.jpg",
-    "rnbimg.jpg",
+    "rnboldschool.jpg",
     "rockandrollimg.webp",
+    "hardrock.jpg",
+    "heavymetal.jpg",
+    "popmusic.jpeg",
+    "punk.jpg",
+    "raggae.jpg",
+    "blues.jpg",
+    "folk.jpg",
+    "electronicmusic.jpg",    
   ];
   const [featuredAlbums, setFeaturedAlbums] = useState([]);
   const [carouselImage, setCarouselImage] = useState(`${carouselArray[0]}`);
@@ -93,12 +101,12 @@ const HomePage = ({cartItems, setCartItems, cartCount, setCartCount}) => {
 
   return (
     <>
-      <div>
+      <div >
         <div className="container col-xxl-8 px-4 py-5">
-          <div className="row flex-lg-row-reverse align-items-center g-5 py-5">
-            <div className="col-10 col-sm-8 col-lg-6">
+          <div className="row flex-lg-row-reverse align-items-center g-5 py-5 gradient-background ">
+            <div className="col-10 col-sm-8 col-lg-6 ">
               <img
-                src="coverPhoto.jpg"
+                src="retro_disclogo.png"
                 className="d-block mx-lg-auto img-fluid"
                 alt="Bootstrap Themes"
                 width="700"
@@ -111,22 +119,22 @@ const HomePage = ({cartItems, setCartItems, cartCount, setCartCount}) => {
                 RETRODISC <br />
                 THE KING OF MUSIC SHOPS
               </h1>
-              <p className="lead">
+              <p className="lead text-white fs-3">
                 You take a risk, when you don't shop with RetroDisc
               </p>
               <div className="d-grid gap-2 d-md-flex justify-content-md-start">
-                <button
+                {/* <button
                   type="button"
                   className="btn btn-primary btn-lg px-4 me-md-2"
                 >
                   Primary
-                </button>
-                <button
+                </button> */}
+                {/* <button
                   type="button"
                   className="btn btn-outline-secondary btn-lg px-4"
                 >
                   Default
-                </button>
+                </button> */}
               </div>
             </div>
           </div>
@@ -188,30 +196,30 @@ const HomePage = ({cartItems, setCartItems, cartCount, setCartCount}) => {
         </div>
         <div className="row py-lg-5">
           {" "}
-          <div className="col-lg-6 col-md-8 mx-auto">
+          <div className="col-lg-6 col-md-8 mx-auto ">
             {" "}
-            <h1 className="fw-light">This Just In</h1>{" "}
-            <p className="lead text-body-secondary">
+            <h1 className="fw-light fs-1 ">This Just In</h1>{" "}
+            <p className="lead text-body-secondary  fs-3">
                 Check out the latest.  Browse our featured albums below.
             </p>{" "}
             <p>
               {" "}
-              <a href="#" className="btn btn-primary my-2">
+              {/* <a href="#" className="btn btn-primary my-2">
                 Main call to action
-              </a>{" "}
-              <a href="#" className="btn btn-secondary my-2">
+              </a>{" "} */}
+              {/* <a href="#" className="btn btn-secondary my-2">
                 Secondary action
-              </a>{" "}
+              </a>{" "} */}
             </p>{" "}
           </div>{" "}
         </div>
                     
 
-        <div className="album py-5 bg-body-tertiary">
+        <div className="album py-5 bg-body-tertiary ">
           {" "}
           <div className="container">
             {" "}
-            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 ">
               {" "}
 
               {featuredAlbums.map((album, index) => {
