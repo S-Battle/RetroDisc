@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CDdisplay from "../components/CDdisplay";
-// import { useNavigate } from "react-router";
+
 
 
 const HomePage = ({cartItems, setCartItems, cartCount, setCartCount}) => {
@@ -164,11 +164,9 @@ const HomePage = ({cartItems, setCartItems, cartCount, setCartCount}) => {
           {" "}
           <div className="col-lg-6 col-md-8 mx-auto">
             {" "}
-            <h1 className="fw-light">Album example</h1>{" "}
+            <h1 className="fw-light">This Just In</h1>{" "}
             <p className="lead text-body-secondary">
-              Something short and leading about the collection below—its
-              contents, the creator, etc. Make it short and sweet, but not too
-              short so folks don’t simply skip over it entirely.
+                Check out the latest.  Browse our featured albums below.
             </p>{" "}
             <p>
               {" "}
@@ -181,15 +179,18 @@ const HomePage = ({cartItems, setCartItems, cartCount, setCartCount}) => {
             </p>{" "}
           </div>{" "}
         </div>
+                    
+
         <div className="album py-5 bg-body-tertiary">
           {" "}
           <div className="container">
             {" "}
             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
               {" "}
+
               {featuredAlbums.map((album, index) => {
                 return <>                
-    
+                         
                   <CDdisplay
                     artist={album.artist_name}
                     album={album.album_name}
