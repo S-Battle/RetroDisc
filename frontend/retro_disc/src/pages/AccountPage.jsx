@@ -1,6 +1,7 @@
 import React,{useEffect, useState} from "react";
 import { Link, useNavigate } from 'react-router';
 import CDdisplay from "../components/CDdisplay";
+import RetroFoot from "../components/RetroFoot";
 
 
 
@@ -229,6 +230,8 @@ const AccountPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount, 
 
 
                </div>
+
+               
 
                
             </>

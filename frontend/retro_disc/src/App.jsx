@@ -7,6 +7,9 @@ import AccountPage from './pages/AccountPage'
 import Navigator from './components/Navigator'
 import AdminPage from './pages/AdminPage'
 import CheckoutPage from './pages/CheckoutPage'
+import RetroFoot from './components/RetroFoot'
+import AboutPage from './pages/AboutPage'
+import FAQPage from './pages/FAQPage'
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
@@ -97,8 +100,23 @@ function App() {
         setSearchBar={setSearchBar}
         createCart={createCart}  
         />}/>
+        <Route path='/about' element={<AboutPage 
+          
+        />}/>
+        <Route path='/faq' element={<FAQPage 
+         
+        />}/>
+
+
+
+
     </Routes>
+
+
+      <RetroFoot/>
+
     </>
+
       
     
   )

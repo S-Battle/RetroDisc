@@ -101,10 +101,70 @@ const HomePage = ({cartItems, setCartItems, cartCount, setCartCount}) => {
 
   return (
     <>
-      <div >
-        <div className="container col-xxl-8 px-4 py-5">
-          <div className="row flex-lg-row-reverse align-items-center g-5 py-5 gradient-background ">
-            <div className="col-10 col-sm-8 col-lg-6 ">
+    <div  >
+
+
+      <div className="d-flex flex-row gradient-background py-5 px-10 justify-content-center flex-wrap align-items-center align-content-center"  >
+        
+        <div className="d-flex justify-content-center flex-column p-5 col-12 col-lg-6 h-75 ">
+            
+           <h1 style={{fontSize:'4rem', fontWeight:'bold'}}>RETRODISC</h1>
+            <h1 className="display-5 fw-bold lh-1 mb-5">                 
+                THE KING OF MUSIC SHOPS
+              </h1>
+              
+            <p className="lead text-white fs-3">
+                Shop our selection of new and used CD's and vinyl records. 
+                We have eveything from the classics to the latest hits.
+        
+                <p></p>
+                <br></br>
+                You take a risk, when you don't shop with RetroDisc.
+              </p>
+        
+        </div>
+        <div className="col-12 d-flex justify-content-center col-lg-6 p-5 h-75 align-content-center align-items-center">
+          <img  className=" d-block mx-lg-auto img-fluid w-50 "  src="retro_disclogo.png" alt="retroDisc"  width="700"
+                height="500"
+                loading="lazy"  style={{minWidth:'450px'}}/>
+
+
+        </div>
+
+      </div>
+
+
+
+
+
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+        {/* <div className="container col-xxl-8 px-4 py-5" >
+          <div className="row flex-lg-row-reverse align-items-center g-5 py-5 gradient-background "  >
+            <div className="col-10 col-sm-8 col-lg-6 "   >
               <img
                 src="retro_disclogo.png"
                 className="d-block mx-lg-auto img-fluid"
@@ -114,7 +174,7 @@ const HomePage = ({cartItems, setCartItems, cartCount, setCartCount}) => {
                 loading="lazy"
               />
             </div>
-            <div className="col-lg-6">
+            <div className="col-lg-6">            
               <h1 className="display-5 fw-bold lh-1 mb-3">
                 RETRODISC <br />
                 THE KING OF MUSIC SHOPS
@@ -127,23 +187,19 @@ const HomePage = ({cartItems, setCartItems, cartCount, setCartCount}) => {
                 <br></br>
                 You take a risk, when you don't shop with RetroDisc.
               </p>
-              <div className="d-grid gap-2 d-md-flex justify-content-md-start">
-                {/* <button
-                  type="button"
-                  className="btn btn-primary btn-lg px-4 me-md-2"
-                >
-                  Primary
-                </button> */}
-                {/* <button
-                  type="button"
-                  className="btn btn-outline-secondary btn-lg px-4"
-                >
-                  Default
-                </button> */}
-              </div>
+             
             </div>
           </div>
-        </div>
+        </div> */}
+
+
+
+
+
+
+
+
+        
         <div
           className="carouselContainer"
           style={{

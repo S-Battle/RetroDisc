@@ -259,8 +259,8 @@ app.get('/api/album/random', async (req, res) => {
               ON art.artist_id = alb.artist_id 
               INNER JOIN genre gen
               ON gen.genre_id = alb.album_genre
-          ORDER BY RANDOM()
-          LIMIT 15;
+              ORDER BY RANDOM()
+              LIMIT 15;
       `);
       console.log(result.rows);
       res.json({ album: result.rows });
