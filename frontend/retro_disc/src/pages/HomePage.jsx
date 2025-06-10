@@ -6,18 +6,18 @@ import CDdisplay from "../components/CDdisplay";
 const HomePage = ({cartItems, setCartItems, cartCount, setCartCount}) => {
   let carouselArray = [
     "hiphopimg.jpg",
-    "countryimg.jpg",
-    "jazzimg.jpg",
+    "country.jpg",
+    "jazz.jpg",
     "rnboldschool.jpg",
     "rockandrollimg.webp",
     "hardrock.jpg",
-    "heavymetal.jpg",
-    "popmusic.jpeg",
+    "metal.jpg",
+    "pop.jpg",
     "punk.jpg",
     "raggae.jpg",
-    "blues.jpg",
+    "blues2.jpg",
     "folk.jpg",
-    "electronicmusic.jpg",    
+    "electronicmusic.png",    
   ];
   const [featuredAlbums, setFeaturedAlbums] = useState([]);
   const [carouselImage, setCarouselImage] = useState(`${carouselArray[0]}`);
@@ -120,7 +120,12 @@ const HomePage = ({cartItems, setCartItems, cartCount, setCartCount}) => {
                 THE KING OF MUSIC SHOPS
               </h1>
               <p className="lead text-white fs-3">
-                You take a risk, when you don't shop with RetroDisc
+                Shop our selection of new and used CD's and vinyl records. 
+                We have eveything from the classics to the latest hits.
+        
+                <p></p>
+                <br></br>
+                You take a risk, when you don't shop with RetroDisc.
               </p>
               <div className="d-grid gap-2 d-md-flex justify-content-md-start">
                 {/* <button
@@ -200,7 +205,8 @@ const HomePage = ({cartItems, setCartItems, cartCount, setCartCount}) => {
             {" "}
             <h1 className="fw-light fs-1 ">This Just In</h1>{" "}
             <p className="lead text-body-secondary  fs-3">
-                Check out the latest.  Browse our featured albums below.
+                Check out what's new in stock.   
+                Browse our featured albums below.  
             </p>{" "}
             <p>
               {" "}

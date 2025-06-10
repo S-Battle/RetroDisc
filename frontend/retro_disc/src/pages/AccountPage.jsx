@@ -108,7 +108,7 @@ const AccountPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount, 
          return <div className="loginContainer" style={{display:"flex", justifyContent:"center", paddingTop:"100px"}}>
           <div className="text-center" style={{width: "350px"}}>
         <form className="form-signin">
-  <img className="mb-4" src="/docs/4.4/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"/>
+  <img className="mb-4" src="retro_disclogo.png" alt="" width="300" height="300"/>
   <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
   <label htmlFor="inputEmail" className="sr-only">Email address</label>
   <input type="email" id="inputEmail" className="form-control" placeholder="Email address" required="" autoFocus="" value={emailInput} onChange={(e)=>{
@@ -149,9 +149,10 @@ const AccountPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount, 
                <div className="d-flex flex-column gap-3 p-2 bd-highlight vh-100">
                   <div className="d-flex justify-content-between">
                      <div>
-                     <h1 className="mb-3">Successfully Logged in</h1>
+                     <h1 className="mb-3">Logged In</h1>
                      <h2 className="mb-3">Hello, {`${localStorage.getItem('EMAIL')}`}</h2>
                      </div>
+                     <img className="mb-4" src="retro_disclogo.png" alt="" width="300" height="300"/>
                      <div>
                         <div>
                            <button data-mdb-ripple-init  href={null} role="button" onClick={()=>{logOut();}}>Log Out</button></div>
