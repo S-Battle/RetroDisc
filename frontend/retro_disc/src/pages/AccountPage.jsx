@@ -1,7 +1,7 @@
 import React,{useEffect, useState} from "react";
 import { Link, useNavigate } from 'react-router';
 import CDdisplay from "../components/CDdisplay";
-import RetroFoot from "../components/RetroFoot";
+
 
 
 
@@ -87,6 +87,7 @@ const AccountPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount, 
          })
       })
       const data = await request.json();
+      console.log(data)
       if(data.message == "success"){
          console.log("it was successful")
          setCDArray(()=>{
@@ -94,8 +95,16 @@ const AccountPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount, 
             newArray = data.result;
             return [...newArray];
          })
+      }
+      else{
+         console.log("it was uncuccessful");
+         setCDArray(()=>{
+            let newArray = new Array();
+            return newArray;
+         })
       }  
    }
+   
 
    useEffect(()=>{
 
@@ -147,31 +156,37 @@ const AccountPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount, 
 
    const loggedInView = () =>{
       return <>
-               <div className="d-flex flex-column gap-3 p-2 bd-highlight vh-100">
+               <div className="d-flex flex-column gap-3 p-2 bd-highlight ">
                   <div className="d-flex justify-content-between">
                      <div>
-                     <h1 className="mb-3">Logged In</h1>
-                     <h2 className="mb-3">Hello, {`${localStorage.getItem('EMAIL')}`}</h2>
-                     </div>
-                     <img className="mb-4" src="retro_disclogo.png" alt="" width="300" height="300"/>
-                     <div>
                         <div>
-                           <button data-mdb-ripple-init  href={null} role="button" onClick={()=>{logOut();}}>Log Out</button></div>
+                           <h1 className="mb-3 " style={{fontSize:'4rem'}}>Logged In</h1>
+                           <h2 className="mb-3 fs-1">Hello, {`${localStorage.getItem('EMAIL')}`}</h2>
+                        </div>                        
+                        <div>
+                           <img className="mb-4" src="retro_disclogo.png" alt="" width="200" height="200"/>
+                        </div>
+                     </div>
+                     
+                     <div>
+                        
+                        <div>
+                           <button data-mdb-ripple-init  href={null} role="button" onClick={()=>{logOut();}}>Log Out</button>
+                        </div>
                         <div className="d-flex gap-4">
-                             <Link to="/checkout"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="bi bi-cart3" viewBox="0 0 16 16">
+                             <Link to="/checkout"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" className="bi bi-cart3" viewBox="0 0 16 16">
                               <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l.84 4.479 9.144-.459L13.89 4zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
                               </svg></Link> <h3>{cartCount}</h3>
-                        </div>                     
-                     </div>
-                     
-                     
+                        </div>  
+                                           
+                     </div>   
                   </div>
                   <div className="d-flex flex-column  flex-xl-row">
                   {(searchType.type =='search') && <div className="d-flex flex-column gap-5 col-12 vh-50  col-xl-3 p-3 border border-dark rounded" >
                     {/* <label className="d-flex justify-content-evenly" htmlFor=""><button className="w-25 bg-primary">ARTIST</button><button className="w-25 bg-primary">ALBUM</button><button className="w-25 bg-primary" >BOTH</button></label> */}
-                    <label htmlFor=""><div className="w-100 fs-3 ">SEARCH </div><input className="remh2 w-100 border border-dark rounded p-2" defaultValue="Album, Artist, Genre, ...press enter" value={searchBar} onChange={(e)=>{searchBarInputHandler(e)}} onKeyUp={(e)=>{ checkKey(e)}} type="text" /> </label>                      
-                    <label htmlFor=""> <button className="w-100" onClick={()=>{ searchButton('newReleases'); getNewReleases();}}>NEW RELEASES</button></label>
-                    <label htmlFor=""> <button className="w-100" onClick={()=>{ searchButton('topSellers')}}>TOP SELLERS</button></label>
+                    <label htmlFor=""><div className="w-100 fs-1 ">SEARCH </div><input className="remh4 w-100 border border-dark rounded p-2 fs-2"  value={searchBar} onChange={(e)=>{searchBarInputHandler(e)}} onKeyUp={(e)=>{ checkKey(e)}} type="text" /> </label>                      
+                    <label htmlFor=""> <button className="w-100 fs-3" onClick={()=>{ searchButton('newReleases'); getNewReleases();}}>NEW RELEASES</button></label>
+                    <label htmlFor=""> <button className="w-100 fs-3" onClick={()=>{ searchButton('topSellers')}}>TOP SELLERS</button></label>
                     <label htmlFor=""></label>
                     <label htmlFor=""></label>
                     <label htmlFor=""></label>
@@ -180,10 +195,9 @@ const AccountPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount, 
                   {(searchType.type =='newReleases') && <div className="d-flex flex-column gap-5 col-12 vh-50  col-xl-3 p-3 border border-dark rounded" >
                     {/* <label className="d-flex justify-content-evenly" htmlFor=""><button className="w-25 bg-primary">ARTIST</button><button className="w-25 bg-primary">ALBUM</button><button className="w-25 bg-primary" >BOTH</button></label> */}
                                 
-                    <label htmlFor=""><div className="w-100 fs-3 ">New Releases </div></label> 
-                                        
-                    <label htmlFor=""> <button className="w-100" onClick={()=>{ searchButton('topSellers')}} >TOP SELLERS</button></label>
-                    <label htmlFor=""> <button className="w-100" onClick={()=>{ searchButton('search')}}>SEARCH</button></label> 
+                    <label htmlFor=""><div className="w-100 fs-1 ">New Releases </div></label> 
+                    <label htmlFor=""> <button className="w-100 fs-3" onClick={()=>{ searchButton('topSellers')}} >TOP SELLERS</button></label>
+                    <label htmlFor=""> <button className="w-100 fs-3" onClick={()=>{ searchButton('search')}}>SEARCH</button></label> 
                     <label htmlFor=""></label>
                     <label htmlFor=""></label>
                     <label htmlFor=""></label>
@@ -191,23 +205,25 @@ const AccountPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount, 
                   </div>}
                   {(searchType.type =='topSellers') && <div className="d-flex flex-column gap-5 col-12 vh-50  col-xl-3 p-3 border border-dark rounded" >
                     {/* <label className="d-flex justify-content-evenly" htmlFor=""><button className="w-25 bg-primary">ARTIST</button><button className="w-25 bg-primary">ALBUM</button><button className="w-25 bg-primary" >BOTH</button></label> */}                    
+                     <label htmlFor=""><div className="w-100 fs-1 ">Top Sellers</div></label> 
                     
-                    
-                    <label htmlFor=""><div className="w-100 fs-3 ">Top Sellers</div></label> 
-                    
-                    <label htmlFor=""> <button className="w-100" onClick={()=>{ searchButton('newReleases'); getNewReleases();}}>NEW RELEASES</button></label>                    
-                    <label htmlFor=""> <button className="w-100" onClick={()=>{ searchButton('search')}}>SEARCH</button></label> 
+                    <label htmlFor=""> <button className="w-100 fs-3" onClick={()=>{ searchButton('newReleases'); getNewReleases();}}>NEW RELEASES</button></label>                    
+                    <label htmlFor=""> <button className="w-100 fs-3" onClick={()=>{ searchButton('search')}}> SEARCH  </button></label> 
                     <label htmlFor=""></label>
                     <label htmlFor=""></label>
                     <label htmlFor=""></label>
                     <label htmlFor=""></label>
                   </div>}
-                  <div className="col-12 col-xl-9 text-center bg-body-tertiary vh-90">                                 
-                  <div className="border rounded vh-70 d-flex flex-wrap">
+                   <div className="text-center bg-body-tertiary d-flex flex-wrap"> 
+                             
+                  {/* <div className="cdView"> */}
+                  {/* <div className="border rounded" style={{width:'33%'}}> */}
+                     
                      {cdArray.map((cd, num)=>{
 
-                        return <>
-                        <div style={{width:"33%"}}><CDdisplay
+                        return (<>                        
+                           <CDdisplay 
+                           key={num}
                            artist={cd.artist_name}
                            album={cd.album_name}
                            price={cd.album_price}
@@ -216,29 +232,23 @@ const AccountPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount, 
                            cartItems={cartItems}
                            setCartItems={setCartItems}
                            cartCount={cartCount}
-                           setCartCount={setCartCount}
-                           
-                           />
-                        </div>
-                           
-                        </>
+                           setCartCount={setCartCount}                           
+                           />                          
+                        </>)
                      })}
                      
-                  </div>
+                  {/* </div> */}
                   </div> 
                   </div>
 
 
-               </div>
-
-               
+               </div>       
 
                
             </>
    }
 
    const logOut = ()=>{
-
          localStorage.setItem('TOKEN', "");
          localStorage.setItem('EMAIL', "");
       setLoggedIn(()=>{
@@ -270,7 +280,6 @@ const AccountPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount, 
          console.log("NO TOKEN FOUND");
          logOut();
       }
-
    }
 
    useEffect(()=>{

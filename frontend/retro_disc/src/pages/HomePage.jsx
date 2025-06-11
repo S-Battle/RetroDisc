@@ -117,10 +117,11 @@ const HomePage = ({cartItems, setCartItems, cartCount, setCartCount}) => {
                 Shop our selection of new and used CD's and vinyl records. 
                 We have eveything from the classics to the latest hits.
         
-                <p></p>
+            </p>
                 <br></br>
+            <p className="lead text-white fs-3">
                 You take a risk, when you don't shop with RetroDisc.
-              </p>
+            </p>
         
         </div>
         <div className="col-12 d-flex justify-content-center col-lg-6 p-5 h-75 align-content-center align-items-center">

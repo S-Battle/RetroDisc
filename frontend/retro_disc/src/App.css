@@ -68,7 +68,10 @@ body,
 .remw4{
   width: 4rem;
 }
-
+.cdView{
+  display: flex;
+  flex-wrap: wrap;
+}
 .gradient-background {
   background: linear-gradient(300deg, #f1e0e8, #5f5f58, #d63ca3);
   background-size: 180% 180%;
