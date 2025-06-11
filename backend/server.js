@@ -3,9 +3,9 @@ const pg = require ('pg')
 const path = require ('path');
 const app = express()
 const bcrypt = require("bcrypt");
-const port = 3000
+const port = 3000 || process.env.CONNECT_PORT
 const cors = require("cors");
-const jwt_SECRET = "secret"
+const jwt_SECRET = process.env.SECRET_JWT
 const jwt = require('jsonwebtoken');
 //const corsOptions = {origin: ["http://localhost:5173"],    
 //};

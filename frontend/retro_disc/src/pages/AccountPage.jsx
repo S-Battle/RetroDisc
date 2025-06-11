@@ -104,7 +104,7 @@ const AccountPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount, 
          })
       }  
    }
-   
+
 
    useEffect(()=>{
 
@@ -118,7 +118,7 @@ const AccountPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount, 
          return <div className="loginContainer" style={{display:"flex", justifyContent:"center", paddingTop:"100px"}}>
           <div className="text-center" style={{width: "350px"}}>
         <form className="form-signin">
-  <img className="mb-4" src="retro_disclogo.png" alt="" width="300" height="300"/>
+  <img className="mb-4 rounded-circle " src="retro_disclogo.png" alt="" width="300" height="300"/>
   <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
   <label htmlFor="inputEmail" className="sr-only">Email address</label>
   <input type="email" id="inputEmail" className="form-control" placeholder="Email address" required="" autoFocus="" value={emailInput} onChange={(e)=>{
@@ -164,7 +164,7 @@ const AccountPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount, 
                            <h2 className="mb-3 fs-1">Hello, {`${localStorage.getItem('EMAIL')}`}</h2>
                         </div>                        
                         <div>
-                           <img className="mb-4" src="retro_disclogo.png" alt="" width="200" height="200"/>
+                           <img className="mb-4 rounded-circle " src="retro_disclogo.png" alt="" width="200" height="200"/>
                         </div>
                      </div>
                      

@@ -23,7 +23,7 @@ const CheckoutPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount,
                             <div className="d-flex flex-wrap ">
                                 <div className="border   col-12  col-lg-6 ">
                                     {/* <h1 className="p-5">RETRO DISC</h1> */}
-                                    <div className="pl-5 w-100"><img className="mb-4" src="retro_disclogo.png" alt="" width="370" height="370"/></div> 
+                                    <div className="pl-5 w-100"><img className="mb-4 rounded-circle" src="retro_disclogo.png" alt="" width="370" height="370"/></div> 
                                 
                                     <div className="d.flex flex-column p-5 w-100">
                                         <div className="w-100" ><label className="w-50" htmlFor=""><div>Address</div> <input className="rounded border-dark" style={{width:"400px"}} onChange={(e)=>{

@@ -125,7 +125,7 @@ const HomePage = ({cartItems, setCartItems, cartCount, setCartCount}) => {
         
         </div>
         <div className="col-12 d-flex justify-content-center col-lg-6 p-5 h-75 align-content-center align-items-center">
-          <img  className=" d-block mx-lg-auto img-fluid w-50 "  src="retro_disclogo.png" alt="retroDisc"  width="700"
+          <img  className=" d-block mx-lg-auto img-fluid w-50 rounded-circle "  src="retro_disclogo.png" alt="retroDisc"  width="700"
                 height="500"
                 loading="lazy"  style={{minWidth:'450px'}}/>
 
