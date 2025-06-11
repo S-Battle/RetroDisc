@@ -21,7 +21,7 @@ const CheckoutPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount,
           return(    <>
                             <div className="container">
                             <div className="d-flex flex-wrap ">
-                                <div className="border   col-12  col-lg-8 ">
+                                <div className="border   col-12  col-lg-6 ">
                                     {/* <h1 className="p-5">RETRO DISC</h1> */}
                                     <div className="pl-5 w-100"><img className="mb-4" src="retro_disclogo.png" alt="" width="370" height="370"/></div> 
                                 
@@ -49,9 +49,10 @@ const CheckoutPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount,
                                                 return e.target.value
                                             })
                                         }} type="number" /></label></div>
+                                        
                                     </div>
                                 </div>
-                                <div className="border col-12 col-lg-4  overflow-auto d-flex flex-column justify-content-start align-content-center align-items-center align-items-lg-end align-content-lg-end justify-content-lg-start justify-content-center">
+                                <div className="border col-12 col-lg-6  overflow-auto d-flex flex-column justify-content-start align-content-center align-items-center align-items-lg-end align-content-lg-end justify-content-lg-start justify-content-center">
                                 
                                 <CheckoutTotal 
                                 cartItems={cartItems}                               
