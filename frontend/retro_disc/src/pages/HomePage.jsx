@@ -3,7 +3,7 @@ import CDdisplay from "../components/CDdisplay";
 
 
 
-const HomePage = ({cartItems, setCartItems, cartCount, setCartCount}) => {
+const HomePage = ({cartItems, setCartItems, cartCount, setCartCount, urlFix}) => {
   let carouselArray = [
     "hiphopimg.jpg",
     "country.jpg",
@@ -24,7 +24,7 @@ const HomePage = ({cartItems, setCartItems, cartCount, setCartCount}) => {
   const [carouselNumber, setCarouselNumber] = useState(0);
   let passedNumber = 0;  
   
-  const urlFix = "http://localhost:3000";
+ 
 
   useEffect(() => {
     const getApi = async () => {
