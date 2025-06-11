@@ -15,7 +15,7 @@ function App() {
   const [cartItems, setCartItems] = useState([]);
   const [cartCount, setCartCount ] = useState(0);   
   const [searchBar, setSearchBar ] = useState("");
-  const urlFix = import.meta.env.VITE_URL_FIX;;
+  const urlFix = import.meta.env.VITE_URL_FIX;
 
   const createCart = ()=>{
     if(localStorage.getItem("CART") == ""){

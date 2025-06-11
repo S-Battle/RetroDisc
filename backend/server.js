@@ -27,23 +27,23 @@ app.use(express.json())
 const target = path.resolve(__dirname, '../','frontend','retro_disc','dist');
 console.log(target);
 //app.use(express.static(path.join(__dirname, 'public')))
-app.use(express.static(target));
+// app.use(express.static(target));
 
-app.get('/', async (req, res) =>{
-res.sendFile(path.join(distFolder, "index.html"));
-})
-app.get('/home', async (req, res) =>{
-  res.sendFile(path.join(distFolder, "index.html"));
-})
-app.get('/cart', async (req, res) =>{
-  res.sendFile(path.join(distFolder, "index.html"));
-})
-app.get('/account', async (req, res) =>{
-  res.sendFile(path.join(distFolder, "index.html"));
-})
-app.get('/checkout', async (req, res) =>{
-  res.sendFile(path.join(distFolder, "index.html"));
-})
+// app.get('/', async (req, res) =>{  
+// res.sendFile(path.join(distFolder, "index.html"));
+// })
+// app.get('/home', async (req, res) =>{
+//   res.sendFile(path.join(distFolder, "index.html"));
+// })
+// app.get('/cart', async (req, res) =>{
+//   res.sendFile(path.join(distFolder, "index.html"));
+// })
+// app.get('/account', async (req, res) =>{
+//   res.sendFile(path.join(distFolder, "index.html"));
+// })
+// app.get('/checkout', async (req, res) =>{
+//   res.sendFile(path.join(distFolder, "index.html"));
+// })
 
 
 app.get('/api', (req, res)=>{    
