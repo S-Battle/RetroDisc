@@ -65,7 +65,7 @@ function App() {
         searchBar={searchBar}
         setSearchBar={setSearchBar} 
         createCart={createCart}
-        
+        urlFix={urlFix}
         />}/>
 
       <Route path="/cart" element={ < CartPage/>} />

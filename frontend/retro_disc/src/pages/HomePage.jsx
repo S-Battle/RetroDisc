@@ -24,16 +24,6 @@ const HomePage = ({cartItems, setCartItems, cartCount, setCartCount, urlFix}) =>
   const [carouselNumber, setCarouselNumber] = useState(0);
   let passedNumber = 0;  
   
- 
-
-  useEffect(() => {
-    const getApi = async () => {
-      let response = await fetch(`${urlFix}/api`);
-      console.log(response);
-    };
-    getApi();
-  }, []);
-
   useEffect(() => {
     const fetchFeaturedAlbums = async () => {
       try {
