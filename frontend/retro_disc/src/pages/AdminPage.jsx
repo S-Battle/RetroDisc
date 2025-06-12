@@ -3,7 +3,7 @@ import React, {useState, useEffect} from  "react";
 
 
 
-const AdminPage = ({urlFix}) => {
+const AdminPage = ({urlFix, adminPriv, setAdminPriv}) => {
     const [artistInput, setArtistInput] = useState("");
     const [albumInput, setAlbumInput] = useState("");
     const [priceInput, setPriceInput] = useState("");
@@ -87,7 +87,6 @@ const AdminPage = ({urlFix}) => {
 
 
     const addedAlbumView = ()=>{
-
         return<> 
             <div style={{display:"flex", }}></div>
             <div></div>
@@ -122,28 +121,40 @@ const AdminPage = ({urlFix}) => {
         </>
 
     }
+        const noAccess = ()=>{
+            return<>
+            <div className="container">
+                <div className="d-flex flex-column justify-content-center align-items-center align-content-center" style={{height:"80vh"}}>
+                    <h1>WARNING!</h1>                
+                    <h1>YOU ARE NOT AUTHORIZED TO VIEW THIS PAGE!</h1> 
+               </div>
+            </div>           
+            </>
+        }
 
 
           return(
                              <>
-                             <div style={{display:"flex", flexDirection:"column", justifyContent:"center",  alignItems:'center'}}>
-                             <h1>ADMIN PAGE</h1>
 
-                             <button onClick={()=>{
-                                addAlbumFunction();
-                             }}>ADD ALBUM</button>
-                             <button onClick={()=>{
-                                getAllAlbums();
-                             }}>GET ALBUMS</button>
-                             {addedAlbumView()}
-                             {allAlbumsView()}
-                             <button onClick={()=>{
-                                getAllUsers();
-                             }}>GET USERS</button>
-                                {allUsersView()}
-                             <></>
+                            { (adminPriv) && (<div style={{display:"flex", flexDirection:"column", justifyContent:"center",  alignItems:'center'}}>
+                                <h1>ADMIN PAGE</h1>
 
-                            </div>
+                                <button onClick={()=>{
+                                    addAlbumFunction();
+                                }}>ADD ALBUM</button>
+                                <button onClick={()=>{
+                                    getAllAlbums();
+                                }}>GET ALBUMS</button>
+                                {addedAlbumView()}
+                                {allAlbumsView()}
+                                <button onClick={()=>{
+                                    getAllUsers();
+                                }}>GET USERS</button>
+                                    {allUsersView()}
+                                <></>
+                                </div>)}
+                                {(!adminPriv) && noAccess()}
+                             
 
                              </>
           );

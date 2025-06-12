@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import CDdisplay from "../components/CDdisplay";
+import Popup from "../components/Popup";
 
 
 
-const HomePage = ({cartItems, setCartItems, cartCount, setCartCount, urlFix}) => {
+const HomePage = ( {   popupObject, setPopupObject, searchBar, setSearchBar, cartItems, setCartItems, cartCount, setCartCount, urlFix} ) => {
+  
   let carouselArray = [
     "hiphopimg.jpg",
     "country.jpg",
@@ -276,7 +278,7 @@ const HomePage = ({cartItems, setCartItems, cartCount, setCartCount, urlFix}) =>
               {" "}
 
               {featuredAlbums.map((album, index) => {
-                return <>                
+                return <>     
                          
                   <CDdisplay
                     artist={album.artist_name}
@@ -288,14 +290,22 @@ const HomePage = ({cartItems, setCartItems, cartCount, setCartCount, urlFix}) =>
                     setCartItems={setCartItems}
                     cartCount={cartCount}
                     setCartCount={setCartCount}
+                    popupObject={popupObject}
+                    setPopupObject={setPopupObject}
                   />
                 </>
               })}
               
             </div>
+            <Popup  
+                      setPopupObject={setPopupObject}
+                      popupObject={popupObject}      
+                  />
+
           </div>
         </div>
       </div>
+       
     </>
   );
 };

@@ -60,27 +60,26 @@ app.post("/api/login", async (req, res)=>{
   if(attempt.rowCount > 0){
     const userInfo = await attempt.rows[0];
     const targetPass = await attempt.rows[0].password;
+    const admn = await attempt.rows[0].admn;
+    console.log(attempt);
     bcrypt.compare(password, targetPass, (error, result)=>{
-      if(error){
-        
-        res.json("error made in hashing")
+      if(error){        
+        res.json({message:"error made in hashing"})
         return
       }
-      else{
-             
-        if(result){
-          
+      else{             
+        if(result){          
           const token = jwt.sign({username : email}, jwt_SECRET,{expiresIn: '1h'})                  
-          res.status(200).json({message:'success', token: token, email: email});
+          res.status(200).json({message:'success', token: token, email: email, admn: admn});
         }
         else{          
-          res.json('Incorrect Password')
+          res.json({message:'Incorrect Password'})
         }
       }
     });   
   }
   else{
-    res.json("Email not registered in system")
+    res.json({message:"Email not registered in system"})
   }
 });
 

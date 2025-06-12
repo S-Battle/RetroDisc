@@ -1,11 +1,12 @@
 import React,{useEffect, useState} from "react";
 import { Link, useNavigate } from 'react-router';
 import CDdisplay from "../components/CDdisplay";
+import Popup from "../components/Popup";
 
 
 
 
-const AccountPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount, searchBar, setSearchBar, createCart}) => {
+const AccountPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount, searchBar, setSearchBar, createCart, popupObject, setPopupObject, adminPriv, setAdminPriv}) => {
    const [passwordInput, setPasswordInput] = useState("")
    const [emailInput, setEmailInput] = useState("")
    const [loggedIn, setLoggedIn ] = useState(false);
@@ -151,6 +152,10 @@ const AccountPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount, 
   <p className="mt-5 mb-3 text-muted">© 2025 RetroDisc</p>
   </form>                       
 </div>
+      <Popup 
+      popupObject={popupObject}
+      setPopupObject={setPopupObject}
+      />
       </div> 
    }
 
@@ -232,13 +237,19 @@ const AccountPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount, 
                            cartItems={cartItems}
                            setCartItems={setCartItems}
                            cartCount={cartCount}
-                           setCartCount={setCartCount}                           
+                           setCartCount={setCartCount}
+                           popupObject={popupObject}
+                           setPopupObject={setPopupObject}                           
                            />                          
                         </>)
                      })}
                      
                   {/* </div> */}
                   </div> 
+                  <Popup 
+                  popupObject={popupObject}
+                  setPopupObject={setPopupObject}
+                  />
                   </div>
 
 
@@ -252,6 +263,9 @@ const AccountPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount, 
          localStorage.setItem('TOKEN', "");
          localStorage.setItem('EMAIL', "");
       setLoggedIn(()=>{
+         return false;
+      })
+      setAdminPriv(()=>{
          return false;
       })
 
@@ -288,11 +302,7 @@ const AccountPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount, 
 
 
    const attemptLogin = async()=>{
-
-      if(emailInput == 'admin'){
-         navigate('/admin');
-      }
-
+      
       const response = await fetch(`${urlFix}/api/login`,{
          method:"POST",
          headers:{"Content-Type":"application/json"},
@@ -309,10 +319,36 @@ const AccountPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount, 
          setLoggedIn(()=>{
             return true;
          })
+         if(data.admn){
+            setAdminPriv(()=>{
+               return true;
+            })
+         }
       }
+      else{
+            setPopupObject(()=>{
+               let popup = new Object();
+               popup.type='type1';
+               popup.message1=data.message;
+               return popup;
+            })
+      }   
    }
 
    const attemptRegister = async()=>{
+
+      const emailFormat = /\w+(@)\w+(\.)\w+/gi
+      const validEmail = emailInput.match(emailFormat);
+      if( !validEmail){
+         let popup = new Object();
+         popup.type="type1";
+         popup.message1="Please use a valid email address";
+         setPopupObject(()=>{
+            return popup;
+         })
+         return;        
+      }
+
       const response = await fetch(`${urlFix}/api/register`,{
          method:"POST",
          headers:{"Content-Type":"application/json"},

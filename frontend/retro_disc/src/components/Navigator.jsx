@@ -3,7 +3,7 @@ import {Link, Route, Routes } from 'react-router'
 
 
 
-const Navigator = () => {
+const Navigator = ({adminPriv, setAdminPriv}) => {
 
 
           return(
@@ -31,6 +31,10 @@ const Navigator = () => {
         <li className="nav-item">
           <Link className="nav-link" href="#"  to="/checkout" >Cart</Link>
         </li>
+        {adminPriv && (<li className="nav-item">
+          <Link className="nav-link" style={{color:'red'}} href="#"  to="/admin" >Admin</Link>
+        </li>)}
+        
         {/* <li className="nav-item dropdown">
           <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Dropdown link

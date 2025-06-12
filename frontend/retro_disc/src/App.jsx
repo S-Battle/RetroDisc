@@ -15,6 +15,8 @@ function App() {
   const [cartItems, setCartItems] = useState([]);
   const [cartCount, setCartCount ] = useState(0);   
   const [searchBar, setSearchBar ] = useState("");
+  const [popupObject, setPopupObject ] = useState({popupType:'',message1:'', message2:''});
+  const [adminPriv, setAdminPriv ] = useState(false);
   const urlFix = import.meta.env.VITE_URL_FIX;
 
   const createCart = ()=>{
@@ -42,7 +44,6 @@ function App() {
     })
     console.log(newArray)
     }
-
     
   }
  
@@ -50,7 +51,10 @@ function App() {
   return (
 
     <>
-     <Navigator>
+     <Navigator
+     adminPriv={adminPriv}
+     setAdminPriv={setAdminPriv}
+     >
       {/* <Link to="/" ><div style={{marginLeft: "2rem"}}>Home</div></Link>      
       <Link to="/cart" >Cart</Link>
       <Link to="/account" >Account</Link> */}
@@ -58,14 +62,18 @@ function App() {
 
     <Routes>
       <Route path="/" element={<HomePage
-      cartItems={cartItems} 
-        setCartItems={setCartItems}
+        cartItems={cartItems} 
+        setCartItems={setCartItems}        
         cartCount={cartCount} 
         setCartCount={setCartCount}
         searchBar={searchBar}
         setSearchBar={setSearchBar} 
         createCart={createCart}
+        popupObject={popupObject}
+        setPopupObject={setPopupObject}
+        
         urlFix={urlFix}
+        
         />}/>
 
       <Route path="/cart" element={ < CartPage/>} />
@@ -79,6 +87,10 @@ function App() {
         searchBar={searchBar}
         setSearchBar={setSearchBar}
         createCart={createCart}
+        popupObject={popupObject}
+        setPopupObject={setPopupObject}
+        adminPriv={adminPriv}
+        setAdminPriv={setAdminPriv}
       />} /> 
       <Route path='/admin' element={<AdminPage 
         urlFix={urlFix}
@@ -89,6 +101,8 @@ function App() {
         searchBar={searchBar}
         setSearchBar={setSearchBar}
         createCart={createCart}  
+        adminPriv={adminPriv}
+        setAdminPriv={setAdminPriv}
         />}/>
         <Route path='/checkout' element={<CheckoutPage 
         urlFix={urlFix}
@@ -99,17 +113,13 @@ function App() {
         searchBar={searchBar}
         setSearchBar={setSearchBar}
         createCart={createCart}  
+        popupObject={popupObject}
+        setPopupObject={setPopupObject}
         />}/>
-        <Route path='/about' element={<AboutPage 
-          
+        <Route path='/about' element={<AboutPage           
         />}/>
-        <Route path='/faq' element={<FAQPage 
-         
+        <Route path='/faq' element={<FAQPage       
         />}/>
-
-
-
-
     </Routes>
 
 

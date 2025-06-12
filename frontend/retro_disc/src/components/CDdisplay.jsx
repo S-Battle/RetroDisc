@@ -2,7 +2,7 @@ import React, { useEffect } from  "react";
 
 
 
-const CDdisplay = ({artist, album, price, year, id, cartItems, setCartItems, cartCount, setCartCount}) => {
+const CDdisplay = ({artist, album, price, year, id, cartItems, setCartItems, cartCount, setCartCount, setPopupObject, popupObject}) => {
           
           let newArtistName = artist;
           if(newArtistName.indexOf("/") != -1){
@@ -20,7 +20,33 @@ const CDdisplay = ({artist, album, price, year, id, cartItems, setCartItems, car
           const addToCart = ((e)=>{           
             let albumString = e.target.attributes.album_info.nodeValue;
             let albumArray = albumString.split("*");           //let newAlbumObject = new Object();
-           
+            let popup = new Object();
+            let needPopup = false;
+            let foundNumber = cartItems.filter((item) =>{
+              console.log("item[0]: ", item[0], "albumArray[0]: ", albumArray[0])
+              return item[0] == albumArray[0]
+            })
+            console.log("found this", foundNumber)
+
+            if (foundNumber.length > 0){
+              console.log("already in cart");              
+              popup.type='type1';
+              popup.message1='This item has already been added to cart'   
+              needPopup = true;    
+              setPopupObject(()=>{
+              console.log('Got here')
+              if(needPopup){
+                return popup;
+              }
+              else{
+                return prev
+              }
+            })            
+
+              return;
+            }
+            
+            
             setCartItems((prev)=>{  
               localStorage.setItem("CART", [...cartItems,...albumArray])
               return [...prev, albumArray];
@@ -43,9 +69,9 @@ const CDdisplay = ({artist, album, price, year, id, cartItems, setCartItems, car
           
           return (
             
-              <div className="col-12 col-sm-6 col-md-6 col-xl-4 col-xxl-4">
+              <div className="col-12 col-sm-6 col-md-6 col-xl-4 col-xxl-4" style={{maxWidth:"600px", minWidth: "400px"}}>
               <div className="card shadow-sm">                                    
-               <img className="w-100 rounded p-3 " style={{maxWidth:"500px"}}  src={finishedName} alt={"ALBUM ART NOT AVAILABLE"} />                
+               <img className="w-100 rounded p-3 " style={{minWidth: "400px"}}  src={finishedName} alt={"ALBUM ART NOT AVAILABLE"} />                
                 <div className="card-body d-flex flex-row justify-content-between">                  
                   <div className="card-text d-flex justify-conent-start flex-column align-items-start fs-1-lg w-75">
                    <div>{"Artist: "}{artist}</div> 
