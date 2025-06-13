@@ -13,6 +13,7 @@ const CheckoutPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount,
         const [zipInput, setZipInput ] = useState("");
         const [success, setSuccess] = useState(false);
         const [checkoutAmount, setCheckoutAmount] = useState(-1)
+        const [nameInput, setNameInput] = useState("");
 
 
       
@@ -37,6 +38,12 @@ const CheckoutPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount,
                                     </div> 
                                 
                                     <div className="d.flex flex-column p-5 w-100">
+                                         <div><label htmlFor=""><div>Name</div><input className="rounded border-dark p-1 fs-3 remh3" value={nameInput} onChange={(e)=>{
+                                            setNameInput(()=>{
+                                                return e.target.value
+                                            })
+                                        }} type="text" /></label></div>
+                                        <br />
                                         <div className="w-100" ><label className="w-50 " htmlFor=""><div>Address</div> <input className="rounded border-dark p-1 fs-3 remh3" style={{width:"400px"}} onChange={(e)=>{
                                             setAddressInput(()=>{
                                                 return e.target.value
@@ -65,7 +72,19 @@ const CheckoutPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount,
 
                                         
                                         <StripeContainer
-                                        urlFix={urlFix} />
+                                        urlFix={urlFix} 
+                                        name={nameInput}
+                                        address={addressInput}
+                                        city={cityInput}
+                                        state={stateInput}
+                                        zip={zipInput}
+                                        amount={checkoutAmount}
+                                        cartItems = {cartItems}
+                                        setCartItems = {setCartItems}
+                                        
+                                        
+                                        
+                                        />
 
 
 

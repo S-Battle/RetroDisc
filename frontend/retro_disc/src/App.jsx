@@ -10,6 +10,7 @@ import CheckoutPage from './pages/CheckoutPage'
 import RetroFoot from './components/RetroFoot'
 import AboutPage from './pages/AboutPage'
 import FAQPage from './pages/FAQPage'
+import SuccessfulPaymentPage from './pages/SuccessfulPaymentPage'
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
@@ -17,6 +18,7 @@ function App() {
   const [searchBar, setSearchBar ] = useState("");
   const [popupObject, setPopupObject ] = useState({popupType:'',message1:'', message2:''});
   const [adminPriv, setAdminPriv ] = useState(false);
+  const [successfulPayment, setSuccessfulPayment] = useState(false);
   const urlFix = import.meta.env.VITE_URL_FIX;
 
   const createCart = ()=>{
@@ -120,6 +122,10 @@ function App() {
         />}/>
         <Route path='/faq' element={<FAQPage       
         />}/>
+         <Route path="/successful_payment" element={<SuccessfulPaymentPage 
+        />} />
+
+
     </Routes>
 
 

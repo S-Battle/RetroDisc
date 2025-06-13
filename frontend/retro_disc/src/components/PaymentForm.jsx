@@ -1,6 +1,7 @@
 import React, { useState, useEffect} from  "react";
 import {CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
-
+import {Route, Routes, Link } from "react-router"
+import SuccessfulPaymentPage from "../pages/SuccessfulPaymentPage";
 
 
 const CARD_OPTIONS = {
@@ -29,7 +30,7 @@ const CARD_OPTIONS = {
 
 
 
-const PaymentForm = ({urlFix}) => {
+const PaymentForm = ({urlFix, name, address, city, state, zip, cartItems, setCartItems}) => {
 
     const stripe = useStripe();
     const elements = useElements();
@@ -48,15 +49,19 @@ const PaymentForm = ({urlFix}) => {
                     headers : {"Content-Type":"application/json"},
                     body : JSON.stringify({
                         amount: 1000,
-                        id: id
+                        id: id,
+                        name,
+                        address,
+                        city,
+                        state,
+                        zip,
                     })
                 })
-                const responseData = response.json();
+                const responseData = await response.json();
+                console.log(responseData)
                 if(responseData.success){
                     console.log("Successful Payment");
-                    setSuccess(()=>{
-                        return true;
-                    })
+                   
                 }
             }catch(error){
                 console.log("error: ", error)
@@ -73,6 +78,8 @@ const PaymentForm = ({urlFix}) => {
                                   <button onClick={()=>{
                                     handleSubmit();
                                   }}>PAY</button>
+
+                                  
                                 </div>                           
                              </>
           );
