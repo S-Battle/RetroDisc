@@ -52,7 +52,7 @@ const PaymentForm = ({urlFix}) => {
                     })
                 })
                 const responseData = response.json();
-                if(responseData.data.success){
+                if(responseData.success){
                     console.log("Successful Payment");
                     setSuccess(()=>{
                         return true;

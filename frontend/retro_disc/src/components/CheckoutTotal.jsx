@@ -27,7 +27,7 @@ const CheckoutTotal = ({cartItems, checkoutAmount, setCheckoutAmount}) => {
 
           return(
                              <>
-                             <div className="align-self-lg-start border border-dark rounded p-5" style={{width:"450px"}}>
+                             <div id="checkoutBox" className="align-self-lg-start border border-dark rounded p-5" style={{width:"450px"}}>
                                 <h2>Checkout</h2>
                                 <div className="d-flex mt-4"><div  style={{width:'80px'}}>Amount:</div><div>${sum}</div></div>
                                 <div className="d-flex mt-0"><div style={{width:'80px'}}>Tax:</div><div>${tax}</div></div>

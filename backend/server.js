@@ -7,6 +7,7 @@ const port = 3000 || process.env.CONNECT_PORT
 const cors = require("cors");
 const jwt_SECRET = process.env.SECRET_JWT
 const jwt = require('jsonwebtoken');
+const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST)
 //const corsOptions = {origin: ["http://localhost:5173"],    
 //};
 app.use(cors());
@@ -24,6 +25,7 @@ client.connect();
 
 
 app.use(express.json())
+
 //const target = path.resolve(__dirname, '../','frontend','retro_disc','dist');
 //console.log(target);
 console.log(path.join(__dirname, 'public'))
@@ -275,6 +277,35 @@ app.get('/api/album/random', async (req, res) => {
   }
 });
 
+app.post("/api/checkout/payment", cors(), async (req, res)=>{
+  let { amount, id } = req.body;
+  try{
+    const payment = await stripe.paymentIntents.create({
+      amount: amount,
+      currency: "USD",
+      description: "CD",
+      payment_method: id,
+      confirm: true,
+      automatic_payment_methods: {
+        enabled: true,
+        allow_redirects: "never"
+      },      
+    })
+    console.log("Payment", payment);
+    res.json({
+      message: "Payment successful",
+      success: true
+    })
+  }
+  catch(error){
+    console.log("Error: ", error);
+    res.json({
+      message: "payment failed",
+      success: false,
+    })
+  }
+
+})
 
 
 app.listen(port, () => {

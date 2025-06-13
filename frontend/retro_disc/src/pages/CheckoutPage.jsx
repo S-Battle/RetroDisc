@@ -87,7 +87,7 @@ const CheckoutPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount,
                                 /> 
                                 <div className="d-flex justify-content-between w-100 mt-5 ">
                                     <div>
-                                        TARGET
+                                       
                                     </div>
                                     <div>
                                         {cartItems.map((item, num)=>{

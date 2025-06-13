@@ -139,17 +139,18 @@ const AccountPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount, 
       })
   }}/>
   <div className="checkbox mb-3">
-    <label>
-      <input type="checkbox" value="remember-me"/> Remember me
-    </label>
+    
   </div>
-  <button className="btn btn-lg btn-primary btn-block" type="button" onClick={(()=>{
+  
+  <button className="pinkButton me-5 btn-lng" type="button" onClick={(()=>{
    attemptLogin();
   })}>Sign in</button>
-  <button className="btn btn-lg btn-primary btn-block" type="button" onClick={(()=>{
+  <button className="pinkButton" type="button" onClick={(()=>{
    attemptRegister();
   })}>Register</button>
   <p className="mt-5 mb-3 text-muted">© 2025 RetroDisc</p>
+
+
   </form>                       
 </div>
       <Popup 

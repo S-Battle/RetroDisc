@@ -93,4 +93,23 @@ body,
 .bg_grey{
   background-color: grey;
 }
+button{
+  background-color: rgb(0, 0, 0);
+  color: white;
+}
+
+#checkoutBox{
+  background-color: rgb(182, 205, 50);
+}
+
+#footing{
+  color: rgb(187, 71, 90);
+
+}
+
+.pinkButton{
+  background-color: rgb(224, 71, 143);
+  color: white;
+  font-weight: bolder;
+}
 
