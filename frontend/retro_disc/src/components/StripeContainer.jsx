@@ -6,7 +6,7 @@ import PaymentForm from "./PaymentForm";
 
 
 
-const StripeContainer = () => {
+const StripeContainer = ({urlFix}) => {
 
 
     const PUBLIC_KEY = 'pk_test_51RYTtoCffQFfKbvcRP1jTd6xepobP2hnjrwMt8efpPkIRWjUaozWRk2UrBnI8HxUvVYMRxnxseKyS21PVZG7R9pE004VQZ5MSi';
@@ -15,7 +15,9 @@ const StripeContainer = () => {
           return(
                              <>
                              <Elements stripe={stripeTestPromise}>
-                                <PaymentForm />   
+                                <PaymentForm
+                                urlFix={urlFix}
+                                />   
                              </Elements>
 
                              </>

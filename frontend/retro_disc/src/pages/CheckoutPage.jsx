@@ -64,7 +64,8 @@ const CheckoutPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount,
                                         {/* Stripe goes here*/}
 
                                         
-                                        <StripeContainer />
+                                        <StripeContainer
+                                        urlFix={urlFix} />
 
 
 

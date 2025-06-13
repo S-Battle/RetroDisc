@@ -29,13 +29,13 @@ const CARD_OPTIONS = {
 
 
 
-const PaymentForm = () => {
+const PaymentForm = ({urlFix}) => {
 
     const stripe = useStripe();
     const elements = useElements();
 
     const handleSubmit = async (e)=>{
-        e.preventDefault();
+        //e.preventDefault();
         const {error, paymentMethod} = await stripe.createPaymentMethod({
             type:"card",
             card:elements.getElement(CardElement),
