@@ -70,6 +70,9 @@ const PaymentForm = () => {
                              <>
                                 <div style={{marginTop: "2rem"}}>
                                   <CardElement options={CARD_OPTIONS} />  
+                                  <button onClick={()=>{
+                                    handleSubmit();
+                                  }}>PAY</button>
                                 </div>                           
                              </>
           );
