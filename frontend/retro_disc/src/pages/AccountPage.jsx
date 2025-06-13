@@ -173,10 +173,10 @@ const AccountPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount, 
                         </div>
                      </div>
                      
-                     <div>
+                     <div className="d-flex flex-column justify-content-start align-content-start align-items-center" >
                         
                         <div>
-                           <button data-mdb-ripple-init  href={null} role="button" onClick={()=>{logOut();}}>Log Out</button>
+                           <button data-mdb-ripple-init  href={null} role="button" onClick={()=>{logOut();}}> <div className="fs-3" >Log Out</div> </button>
                         </div>
                         <div className="d-flex gap-4">
                              <Link to="/checkout"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" className="bi bi-cart3" viewBox="0 0 16 16">
@@ -286,8 +286,18 @@ const AccountPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount, 
             localStorage.setItem('EMAIL', data.email)
             setLoggedIn(()=>{
                return true;
+            })            
+         }
+         else if(data.message == 'jwt expired'){
+            let popup = new Object();
+            popup.type='type1';
+            popup.message1="Your session has ended."
+            popup.message2="Please log in again to continue"
+            setPopupObject(()=>{
+               return popup;
             })
-            
+            logOut();
+
          }           
       }
       else{         

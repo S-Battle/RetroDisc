@@ -128,6 +128,10 @@ app.post("/api/token/verify", async (req, res)=>{
       }catch(e){  
       }     
 });
+
+
+
+
 app.post('/api/hash', async (req, res) =>{
   const { email, password } = await req.body;
   console.log('THIS IS THE PASSWORD', password);

@@ -114,7 +114,7 @@ function App() {
         setSearchBar={setSearchBar}
         createCart={createCart}  
         popupObject={popupObject}
-        setPopupObject={setPopupObject}
+        setPopupObject={setPopupObject}        
         />}/>
         <Route path='/about' element={<AboutPage           
         />}/>

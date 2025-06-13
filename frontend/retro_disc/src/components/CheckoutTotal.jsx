@@ -1,8 +1,8 @@
-import React from  "react";
+import React, {useState, useEffect } from  "react";
 
 
 
-const CheckoutTotal = ({cartItems}) => {
+const CheckoutTotal = ({cartItems, checkoutAmount, setCheckoutAmount}) => {
 
     let sum = 0;
     
@@ -13,6 +13,17 @@ const CheckoutTotal = ({cartItems}) => {
     sum = sum.toFixed(2)
     let tax = (sum * .0725).toFixed(2);
     let total = (Number(sum) + Number(tax)).toFixed(2);
+    
+    useEffect(()=>{        
+        const handlePayChange = async ()=>{            
+            setCheckoutAmount(()=>{
+                console.log('TOTAL: ', total)
+                        return total * 100;
+            })
+        }
+        handlePayChange();     
+    },[total])
+    
 
           return(
                              <>
