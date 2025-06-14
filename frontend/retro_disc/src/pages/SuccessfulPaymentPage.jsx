@@ -6,7 +6,7 @@ import { useNavigate } from "react-router";
 
 
 
-const SuccessfulPaymentPage = ({cartItems, setCartItems, amount, setTotalPrint, totalPrint}) => {
+const SuccessfulPaymentPage = ({cartItems, tokenEmail, verifyToken, setCartItems, amount, setTotalPrint, totalPrint}) => {
 
 
    
@@ -52,7 +52,7 @@ const goHome= ()=>{
 }
 let total = 0;
          cartItems.forEach((item, num)=>{
-                        total = total + Number(item[3]);        
+                        total = total + (Number(item[3]) * Number(item[5]))        
                         })
     total = total.toFixed(2)
     let tax = (total * .0725).toFixed(2);
@@ -73,7 +73,7 @@ let total = 0;
                                  <h4>ALBUMS</h4>  
                                  <br /><br />
                                  {cartItems.map((item, num)=>{                                     
-                                    return <div key={num} className="fs-5 border-bottom border-dark">{item[2]}, {item[1]} <br /> ${item[3]}</div>                              
+                                    return <div key={num} className="fs-5 border-bottom border-dark">{item[2]}, {item[1]} <br /> ${item[3]} x {item[5]}</div>                              
                                  })}
                                  <br /><br />
 

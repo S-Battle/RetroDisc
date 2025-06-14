@@ -19,7 +19,8 @@ const CDdisplay = ({artist, album, price, year, id, cartItems, setCartItems, car
 
           const addToCart = ((e)=>{           
             let albumString = e.target.attributes.album_info.nodeValue;
-            let albumArray = albumString.split("*");           //let newAlbumObject = new Object();
+            let albumArray = albumString.split("*");  
+            console.log(albumArray)         //let newAlbumObject = new Object();
             let popup = new Object();
             let needPopup = false;
             let foundNumber = cartItems.filter((item) =>{
@@ -41,7 +42,7 @@ const CDdisplay = ({artist, album, price, year, id, cartItems, setCartItems, car
               else{
                 return prev
               }
-            })            
+              })            
 
               return;
             }
@@ -83,7 +84,7 @@ const CDdisplay = ({artist, album, price, year, id, cartItems, setCartItems, car
                     {" "}
                     <div className="btn-group d-flex align-content-start h-100">    
                       
-                      <button album_id={id} album_info={id+"*"+artist +"*"+album +"*"+price+"*"+year}
+                      <button album_id={id} album_info={id+"*"+artist +"*"+album +"*"+price+"*"+year+"*"+1}
                         type="button"
                         className="btn btn-sm btn-outline-secondary align-self-end remh4 rounded" onClick={(e)=>{
                           addToCart(e);

@@ -3,7 +3,7 @@ import React, {useState, useEffect} from  "react";
 
 
 
-const AdminPage = ({urlFix, adminPriv, setTotalPrint, totalPrint, setAdminPriv}) => {
+const AdminPage = ({urlFix, verifyToken, adminPriv, setTotalPrint, totalPrint, setAdminPriv}) => {
     const [artistInput, setArtistInput] = useState("");
     const [albumInput, setAlbumInput] = useState("");
     const [priceInput, setPriceInput] = useState("");
@@ -29,6 +29,7 @@ const AdminPage = ({urlFix, adminPriv, setTotalPrint, totalPrint, setAdminPriv})
         };
 
         useEffect(()=>{
+            verifyToken();
            setTotalPrint(()=>{
               return false;
            })

@@ -3,9 +3,10 @@ import React, { useEffect } from  "react";
 
 
 
-const FAQPage = ({totalPrint, setTotalPrint}) => {
+const FAQPage = ({totalPrint, verifyToken, setTotalPrint}) => {
 
    useEffect(()=>{
+      verifyToken();
       setTotalPrint(()=>{
          return false;
       })

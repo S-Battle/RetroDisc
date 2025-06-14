@@ -113,7 +113,7 @@ app.post("/api/register", async (req, res)=>{
 app.post("/api/token/verify", async (req, res)=>{
   const {authorization} = req.headers 
   const token = authorization.slice(7) 
-  console.log(token) 
+  //console.log(token) 
   let user = "";
       try{
         jwt.verify(`${token}`, jwt_SECRET, async (err, decoded)=>{
@@ -122,8 +122,9 @@ app.post("/api/token/verify", async (req, res)=>{
               res.json(err) 
             }
             else{
+              console.log(decoded)
               email = await decoded.username;  ////RIGHT HERE     
-              console.log(user)         ;
+              console.log(email)         ;
               res.status(200).json({message:'success', token: token, email: email});           
             }
           });
@@ -136,13 +137,13 @@ app.post("/api/token/verify", async (req, res)=>{
 
 app.post('/api/hash', async (req, res) =>{
   const { email, password } = await req.body;
-  console.log('THIS IS THE PASSWORD', password);
+  //console.log('THIS IS THE PASSWORD', password);
   bcrypt.hash(password, 10, async(error, hash)=>{
     if(error){
       res.json('Hashing Error');
     }
     else{
-      console.log('THIS IS THE HASHED PASSWORD: ', hash)
+      //console.log('THIS IS THE HASHED PASSWORD: ', hash)
       res.json(hash);
       const result = await client.query('INSERT INTO users(email, password) VALUES($1, $2)',[email, hash])
       console.log(result); 
@@ -231,7 +232,7 @@ app.get('/api/get/new/releases', async (req, res)=>{
               "ORDER BY alb.album_year DESC " +
               "LIMIT $1";
   const data = await client.query(url, [number]);
-  console.log(data.rows)
+  //console.log(data.rows)
   if(data.rowCount > 0){
     res.json({message:'success', result: data.rows})
   }
@@ -268,7 +269,7 @@ app.get('/api/album/random', async (req, res) => {
               ORDER BY RANDOM()
               LIMIT 15;
       `);
-      console.log(result.rows);
+      //console.log(result.rows);
       res.json({ album: result.rows });
       
   } catch (err) {
@@ -278,14 +279,25 @@ app.get('/api/album/random', async (req, res) => {
 });
 
 app.post("/api/checkout/payment", cors(), async (req, res)=>{
-  let { amount, id } = req.body;
+  let { amount, id, name, address, city, state, zip, email } = req.body;
   try{
+    // const customer = await stripe.customers.create({
+    //   name: name,
+    //   address : {
+    //     line1: address,
+    //     city: city,
+    //     state: state,
+    //     postal_code: zip,
+    //   }
+    // })
+
     const payment = await stripe.paymentIntents.create({
-      amount: amount,
+      amount: Math.round(amount),
       currency: "USD",
       description: "CD",
       payment_method: id,
       confirm: true,
+      
       automatic_payment_methods: {
         enabled: true,
         allow_redirects: "never"
@@ -304,6 +316,28 @@ app.post("/api/checkout/payment", cors(), async (req, res)=>{
       success: false,
     })
   }
+})
+
+app.post("/api/retrieve/user_id", async (req, res)=>{
+  let SQL = `SELECT * FROM users
+             WHERE email = $1`;
+
+  const { email } = req.body;
+  const result = await client.query(SQL,[email.toLowerCase()]);
+  
+  res.json(result.rows[0].user_id)
+})
+
+app.post("/api/update/sales", async (req, res)=>{  
+  let SQL = `INSERT INTO sales(user_id, album_id, num_sales, cust_name, address, city, cust_state, zip, purchase_id)
+             VALUES `;
+  const { array } = req.body;
+  console.log(array);
+  console.log(SQL+array)
+  const result = await client.query(SQL+array);
+  console.log(result);
+
+
 
 })
 

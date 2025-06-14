@@ -21,6 +21,7 @@ function App() {
   const [successfulPayment, setSuccessfulPayment] = useState(false);
   const [totalPrint, setTotalPrint] = useState(false)
   const [loggedIn, setLoggedIn ] = useState(false);
+  const [tokenEmail, setTokenEmail ] = useState("");
 
   const urlFix = import.meta.env.VITE_URL_FIX;
 
@@ -37,10 +38,10 @@ function App() {
     console.log(localStorArray)
     
     let newArray = new Array();
-    for(let i = 0; i < localStorArray.length/5 ; i++){
+    for(let i = 0; i < localStorArray.length/6 ; i++){
       let albumArray = new Array();
-      for(let j = 0; j < 5; j++){
-        albumArray.push(localStorArray[(i*5)+j])
+      for(let j = 0; j < 6; j++){
+        albumArray.push(localStorArray[(i*6)+j])
       }
       newArray.push(albumArray);
     }
@@ -52,16 +53,57 @@ function App() {
     
   }
 
+
+  const verifyToken = async ()=>{
+      if(localStorage.getItem("TOKEN") != ""){
+         let response = await fetch(`${urlFix}/api/token/verify`,{
+            method: "POST",
+            headers:{"Content-Type":"application/json",
+               authorization:`Bearer:${localStorage.getItem('TOKEN')}`
+            },
+         });
+         console.log("RESPONSE: ",response);
+         let data = await response.json();
+         if(data.message == "success"){
+            //localStorage.setItem('EMAIL', data.email)
+            setTokenEmail(()=>{
+              return data.email;
+            })
+            setLoggedIn(()=>{
+               return true;
+            })            
+         }
+         else {
+            let popup = new Object();
+            popup.type='type1';
+            popup.message1="Your session has ended."
+            popup.message2="Please log in again to continue"
+            setPopupObject(()=>{
+               return popup;
+            })
+            logOut();
+         }           
+      }
+      else{         
+         console.log("NO TOKEN FOUND");
+         logOut();
+      }
+   }
+
+
+
    const logOut = ()=>{
          localStorage.setItem('TOKEN', "");
          localStorage.setItem('EMAIL', "");
+      setTokenEmail(()=>{
+        return "";
+      })
       setLoggedIn(()=>{
          return false;
       })
       setAdminPriv(()=>{
          return false;
       })
-
    }
  
 
@@ -94,6 +136,8 @@ function App() {
         setPopupObject={setPopupObject}
         setTotalPrint={setTotalPrint} 
         urlFix={urlFix}
+        verifyToken={verifyToken}
+        tokenEmail={tokenEmail}
         
         />}/>
 
@@ -117,6 +161,8 @@ function App() {
         loggedIn={loggedIn}
         setLoggedIn={setLoggedIn}
         logOut={logOut}
+        verifyToken={verifyToken}
+        tokenEmail={tokenEmail}
       />} /> 
       <Route path='/admin' element={<AdminPage 
         urlFix={urlFix}
@@ -130,6 +176,8 @@ function App() {
         adminPriv={adminPriv}
         setAdminPriv={setAdminPriv}
         setTotalPrint={setTotalPrint}
+        verifyToken={verifyToken}
+        tokenEmail={tokenEmail}
         />}/>
         <Route path='/checkout' element={<CheckoutPage 
         urlFix={urlFix}
@@ -144,13 +192,20 @@ function App() {
         setPopupObject={setPopupObject}
         setTotalPrint={setTotalPrint}
         totalPrint={totalPrint}
-        loggedIn={loggedIn}        
+        loggedIn={loggedIn}
+        verifyToken={verifyToken}
+        tokenEmail={tokenEmail}   
+             
         />}/>
         <Route path='/about' element={<AboutPage
-        setTotalPrint={setTotalPrint}           
+        setTotalPrint={setTotalPrint}
+        verifyToken={verifyToken}
+        tokenEmail={tokenEmail}           
         />}/>
         <Route path='/faq' element={<FAQPage
-        setTotalPrint={setTotalPrint}       
+        setTotalPrint={setTotalPrint}
+        verifyToken={verifyToken}
+        tokenEmail={tokenEmail}       
         />}/>
          {/* <Route path="/successful_payment" element={<SuccessfulPaymentPage 
           cartItems={cartItems}

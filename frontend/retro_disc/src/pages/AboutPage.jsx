@@ -3,12 +3,15 @@ import { useEffect } from "react";
 
 
 
-const AboutPage = ({setTotalPrint}) => {
+const AboutPage = ({setTotalPrint, verifyToken}) => {
 useEffect(()=>{
    setTotalPrint(()=>{
       return false;
    })
+   verifyToken();
 },[])
+
+
 
           return(
                              <>

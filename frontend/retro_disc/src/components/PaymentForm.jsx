@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from  "react";
 import {CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
-import {Route, Routes, Link, useNavigate } from "react-router"
-import SuccessfulPaymentPage from "../pages/SuccessfulPaymentPage";
+
+
 
 
 const CARD_OPTIONS = {
@@ -23,18 +23,18 @@ const CARD_OPTIONS = {
         }
     }
 }
+//pm_1RZyLICffQFfKbvcQxXtOWlz
 
 
 
 
 
 
-
-const PaymentForm = ({urlFix, name, address, city, state, zip, amount, cartItems, setCartItems, paymentMade, setPaymentMade}) => {
+const PaymentForm = ({urlFix, tokenEmail, popupObject, setPopupObject, name, address, city, state, zip, amount, cartItems, setCartItems, paymentMade, setPaymentMade}) => {
 
     const stripe = useStripe();
     const elements = useElements();
-    const navigate = useNavigate();
+   
 
     const tempSuccessPayment = ()=>{
 
@@ -46,10 +46,32 @@ const PaymentForm = ({urlFix, name, address, city, state, zip, amount, cartItems
 
     const handleSubmit = async (e)=>{
         //e.preventDefault();
+        if( (name == "") || (address == "") || (city == "") || ( state == "") || (zip == "")){
+            console.log("NO BUENO")
+            let popup = new Object();
+            popup.type = "type1"
+            popup.message1 = "Please fill in all fields before continuing."
+            popup.message2 = "(name address city state zip)"
+            setPopupObject(()=>{
+                return popup;
+            })
+            return;
+        }
         const {error, paymentMethod} = await stripe.createPaymentMethod({
             type:"card",
-            card:elements.getElement(CardElement),
+            card:elements.getElement(CardElement),            
         })
+        // paymentMethod = await stripe.paymentMethods.attach(
+        //     {
+        //         customer: { name,
+        //                     address : {
+        //                                 line1: address,
+        //                                 city: city,
+        //                                 state: state,
+        //                                 postal_code: zip,
+        //                             }
+        //                   }
+        //     })
         if(!error){
             try{
                 const { id } = paymentMethod
@@ -64,13 +86,19 @@ const PaymentForm = ({urlFix, name, address, city, state, zip, amount, cartItems
                         city,
                         state,
                         zip,
+                        email: tokenEmail,
                     })
                 })
                 const responseData = await response.json();
                 console.log(responseData)
                 if(responseData.success){
                     console.log("Successful Payment");
-                   
+                    
+                    setPaymentMade(()=>{                        
+                        let myVal = true;
+                        return myVal;
+                    });
+                    updatePurchases(id)                   
                 }
             }catch(error){
                 console.log("error: ", error)
@@ -80,20 +108,68 @@ const PaymentForm = ({urlFix, name, address, city, state, zip, amount, cartItems
             console.log(error.message);
         }    
     }
+    const getUserId = async ()=>{
+        let response = await fetch(`${urlFix}/api/retrieve/user_id`, {
+            method: "POST",
+            headers:{"Content-Type":"application/json"},
+            body: JSON.stringify({
+                email : tokenEmail,
+            })
+        })
+        let data = await response.json();
+        console.log(response);
+        return data;
+    }
+
+    const updatePurchases = async (id)=>{
+
+        let userID = await getUserId()
+        let insertInfo = await cartItems.map((item)=>{
+            return (`('${userID}', '${item[0]}', ${Number (item[5])}, '${name}',
+            '${address}', '${city}', '${state}', '${zip}', '${id}')`)
+        })
+        const request = await fetch(`${urlFix}/api/update/sales`, {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body : JSON.stringify({
+            array: insertInfo,            
+        })
+    })    
+}
+
+
+
+
+
+
+
+
+
+
+
+
           return(
                 <>
                 <div style={{marginTop: "2rem"}}>
-                    <CardElement options={CARD_OPTIONS} />  
-                    <button onClick={()=>{
+                    {(cartItems.length < 1) && <h3>NO ITEMS IN CART</h3>  }
+                    {(cartItems.length > 0) && <CardElement options={CARD_OPTIONS} /> } 
+                    {(cartItems.length > 0) && <button className="btn-lng mt-3" role='btn' onClick={()=>{
                     handleSubmit();
-                    }}>PAY</button>                                 
+                    }}>PAY</button> }  <br />
+                    <button className="btn-lng mt-3" role='btn' onClick={()=>{
+                        updatePurchases();
+                        //getUserId();
+                    }}>Update Purchases</button>                              
                 </div>
-                <button onClick={()=>{ tempSuccessPayment()}}>TEST</button>
+                <button className="mt-3" onClick={()=>{ tempSuccessPayment()}}>TEST</button>
                    
                 </>
           );
 
 }
+
+
+
 
 
 

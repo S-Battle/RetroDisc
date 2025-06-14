@@ -6,7 +6,7 @@ import Popup from "../components/Popup";
 
 
 
-const AccountPage = ({urlFix, logOut, loggedIn, setLoggedIn, totalPrint, setTotalPrint, cartItems, setCartItems, cartCount, setCartCount, searchBar, setSearchBar, createCart, popupObject, setPopupObject, adminPriv, setAdminPriv}) => {
+const AccountPage = ({urlFix, verifyToken, logOut, loggedIn, setLoggedIn, totalPrint, setTotalPrint, cartItems, setCartItems, cartCount, setCartCount, searchBar, setSearchBar, createCart, popupObject, setPopupObject, adminPriv, setAdminPriv}) => {
    const [passwordInput, setPasswordInput] = useState("")
    const [emailInput, setEmailInput] = useState("") 
    const [searchType, setSearchType] = useState({type:"search"})
@@ -26,7 +26,8 @@ const AccountPage = ({urlFix, logOut, loggedIn, setLoggedIn, totalPrint, setTota
    }
    
    useEffect( ()=>{
-      createCart();      
+      createCart(); 
+      verifyToken();     
       setTotalPrint(()=>{
          return false;
       })
@@ -259,39 +260,38 @@ const AccountPage = ({urlFix, logOut, loggedIn, setLoggedIn, totalPrint, setTota
   
 
 
-   const verifyToken = async ()=>{
-      if(localStorage.getItem("TOKEN") != ""){
-         let response = await fetch(`${urlFix}/api/token/verify`,{
-            method: "POST",
-            headers:{"Content-Type":"application/json",
-               authorization:`Bearer:${localStorage.getItem('TOKEN')}`
-            },
-         });
-         console.log("RESPONSE: ",response);
-         let data = await response.json();
-         if(data.message == "success"){
-            localStorage.setItem('EMAIL', data.email)
-            setLoggedIn(()=>{
-               return true;
-            })            
-         }
-         else if(data.message == 'jwt expired'){
-            let popup = new Object();
-            popup.type='type1';
-            popup.message1="Your session has ended."
-            popup.message2="Please log in again to continue"
-            setPopupObject(()=>{
-               return popup;
-            })
-            logOut();
-
-         }           
-      }
-      else{         
-         console.log("NO TOKEN FOUND");
-         logOut();
-      }
-   }
+   // const verifyToken = async ()=>{
+   //    if(localStorage.getItem("TOKEN") != ""){
+   //       let response = await fetch(`${urlFix}/api/token/verify`,{
+   //          method: "POST",
+   //          headers:{"Content-Type":"application/json",
+   //             authorization:`Bearer:${localStorage.getItem('TOKEN')}`
+   //          },
+   //       });
+   //       console.log("RESPONSE: ",response);
+   //       let data = await response.json();
+   //       if(data.message == "success"){
+   //          localStorage.setItem('EMAIL', data.email)
+   //          setLoggedIn(()=>{
+   //             return true;
+   //          })            
+   //       }
+   //       else {
+   //          let popup = new Object();
+   //          popup.type='type1';
+   //          popup.message1="Your session has ended."
+   //          popup.message2="Please log in again to continue"
+   //          setPopupObject(()=>{
+   //             return popup;
+   //          })
+   //          logOut();
+   //       }           
+   //    }
+   //    else{         
+   //       console.log("NO TOKEN FOUND");
+   //       logOut();
+   //    }
+   // }
 
    useEffect(()=>{
       verifyToken();

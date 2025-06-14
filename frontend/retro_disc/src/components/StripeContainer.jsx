@@ -6,7 +6,7 @@ import PaymentForm from "./PaymentForm";
 
 
 
-const StripeContainer = ({urlFix, name, address, city, state, zip, amount, cartItems, setCartItems, paymentMade, setPaymentMade}) => {
+const StripeContainer = ({urlFix, tokenEmail, popupObject, setPopupObject, name, address, city, state, zip, amount, cartItems, setCartItems, paymentMade, setPaymentMade}) => {
 
 
     const PUBLIC_KEY = 'pk_test_51RYTtoCffQFfKbvcRP1jTd6xepobP2hnjrwMt8efpPkIRWjUaozWRk2UrBnI8HxUvVYMRxnxseKyS21PVZG7R9pE004VQZ5MSi';
@@ -27,6 +27,9 @@ const StripeContainer = ({urlFix, name, address, city, state, zip, amount, cartI
                      setCartItems={setCartItems}
                      paymentMade={paymentMade}
                      setPaymentMade={setPaymentMade}
+                     tokenEmail={tokenEmail}
+                     popupObject={popupObject}
+                     setPopupObject={setPopupObject}
                      />   
                   </Elements>
 

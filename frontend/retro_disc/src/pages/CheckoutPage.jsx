@@ -6,9 +6,10 @@ import CheckoutTotal from "../components/CheckoutTotal";
 import StripeContainer from "../components/StripeContainer";
 import SuccessfulPaymentElement from "../components/SuccessfulPaymentElement";
 import SuccessfulPaymentPage from "./SuccessfulPaymentPage";
+import Popup from "../components/Popup";
 
 
-const CheckoutPage = ({urlFix, loggedIn, totalPrint, setTotalPrint, cartItems, setCartItems, cartCount, setCartCount, searchBar, setSearchBar, createCart}) => {
+const CheckoutPage = ({urlFix,  tokenEmail , verifyToken, loggedIn, popupObject, setPopupObject, totalPrint, setTotalPrint, cartItems, setCartItems, cartCount, setCartCount, searchBar, setSearchBar, createCart}) => {
         const [addressInput, setAddressInput ] = useState("");
         const [cityInput, setCityInput ] = useState("");
         const [stateInput, setStateInput ] = useState("");
@@ -25,6 +26,7 @@ const CheckoutPage = ({urlFix, loggedIn, totalPrint, setTotalPrint, cartItems, s
         
 
     useEffect( ()=>{
+        verifyToken();
           createCart();
     },[])
 
@@ -105,7 +107,10 @@ const CheckoutPage = ({urlFix, loggedIn, totalPrint, setTotalPrint, cartItems, s
                                         cartItems = {cartItems}
                                         setCartItems = {setCartItems}
                                         paymentMade={paymentMade}
-                                        setPaymentMade={setPaymentMade}  
+                                        setPaymentMade={setPaymentMade} 
+                                        tokenEmail={tokenEmail}
+                                        popupObject={popupObject}
+                                        setPopupObject={setPopupObject} 
                                         />
                                     </div>
                                 </div>
@@ -129,7 +134,8 @@ const CheckoutPage = ({urlFix, loggedIn, totalPrint, setTotalPrint, cartItems, s
                                                 albumName={item[2]} 
                                                 albumArtist={item[1]} 
                                                 albumYear={item[4]} 
-                                                albumPrice={item[3]} 
+                                                albumPrice={item[3]}
+                                                numCopies={item[5]} 
                                                 cartItems={cartItems} 
                                                 setCartItems={setCartItems} 
                                                 cartCount={cartCount} 
@@ -152,9 +158,14 @@ const CheckoutPage = ({urlFix, loggedIn, totalPrint, setTotalPrint, cartItems, s
                                 cartItems={cartItems}
                                 setTotalPrint={setTotalPrint}
                                 totalPrint={totalPrint}
+                                tokenEmail={tokenEmail}
                             
                             />}
-                            {(!loggedIn)&& needToLogIn() }
+                            {(!loggedIn) && needToLogIn() }
+                            <Popup 
+                            popupObject={popupObject}
+                            setPopupObject={setPopupObject}
+                             />
                               
                 </> );
           

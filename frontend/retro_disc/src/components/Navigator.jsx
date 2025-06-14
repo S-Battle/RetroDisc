@@ -26,7 +26,7 @@ const Navigator = ({adminPriv, setAdminPriv, totalPrint, setTotalPrint, logOut, 
           <Link className="nav-link active" aria-current="page" href="#" to="/">Home</Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" href="#" to="/account" >Login/Register</Link>
+          <Link className="nav-link" href="#" to="/account" > {(!loggedIn) && 'Login/Register'} {(loggedIn) && 'Browse/Buy'}   </Link>
         </li>
         {/* <li className="nav-item">
           <Link className="nav-link" href="#"  to="/cart" >Cart</Link>

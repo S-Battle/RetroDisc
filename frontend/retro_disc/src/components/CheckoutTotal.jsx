@@ -7,7 +7,7 @@ const CheckoutTotal = ({cartItems, checkoutAmount, setCheckoutAmount}) => {
     let sum = 0;
     
     cartItems.forEach((item, num)=>{
-        sum = sum + Number(item[3]);
+        sum = sum + (Number(item[3]) * Number(item[5]));
         console.log(sum)
     })
     sum = sum.toFixed(2)

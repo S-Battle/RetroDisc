@@ -4,7 +4,7 @@ import Popup from "../components/Popup";
 
 
 
-const HomePage = ( { totalPrint, setTotalPrint,   popupObject, setPopupObject, searchBar, setSearchBar, cartItems, setCartItems, cartCount, setCartCount, urlFix} ) => {
+const HomePage = ( { totalPrint, setTotalPrint, verifyToken,   popupObject, setPopupObject, searchBar, setSearchBar, cartItems, setCartItems, cartCount, setCartCount, urlFix} ) => {
   
   let carouselArray = [
     "hiphopimg.jpg",
@@ -68,6 +68,7 @@ const HomePage = ( { totalPrint, setTotalPrint,   popupObject, setPopupObject, s
   }, []);
 
   useEffect(()=>{
+    verifyToken();
      setTotalPrint(()=>{
         return false;
      })
