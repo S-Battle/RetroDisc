@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from  "react";
 import {CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
-import {Route, Routes, Link } from "react-router"
+import {Route, Routes, Link, useNavigate } from "react-router"
 import SuccessfulPaymentPage from "../pages/SuccessfulPaymentPage";
 
 
@@ -30,10 +30,19 @@ const CARD_OPTIONS = {
 
 
 
-const PaymentForm = ({urlFix, name, address, city, state, zip, cartItems, setCartItems}) => {
+const PaymentForm = ({urlFix, name, address, city, state, zip, amount, cartItems, setCartItems, paymentMade, setPaymentMade}) => {
 
     const stripe = useStripe();
     const elements = useElements();
+    const navigate = useNavigate();
+
+    const tempSuccessPayment = ()=>{
+
+        setPaymentMade(()=>{
+            return true;
+        })
+
+    }
 
     const handleSubmit = async (e)=>{
         //e.preventDefault();
@@ -48,7 +57,7 @@ const PaymentForm = ({urlFix, name, address, city, state, zip, cartItems, setCar
                     method : "POST",
                     headers : {"Content-Type":"application/json"},
                     body : JSON.stringify({
-                        amount: 1000,
+                        amount: amount,
                         id: id,
                         name,
                         address,
@@ -72,16 +81,16 @@ const PaymentForm = ({urlFix, name, address, city, state, zip, cartItems, setCar
         }    
     }
           return(
-                             <>
-                                <div style={{marginTop: "2rem"}}>
-                                  <CardElement options={CARD_OPTIONS} />  
-                                  <button onClick={()=>{
-                                    handleSubmit();
-                                  }}>PAY</button>
-
-                                  
-                                </div>                           
-                             </>
+                <>
+                <div style={{marginTop: "2rem"}}>
+                    <CardElement options={CARD_OPTIONS} />  
+                    <button onClick={()=>{
+                    handleSubmit();
+                    }}>PAY</button>                                 
+                </div>
+                <button onClick={()=>{ tempSuccessPayment()}}>TEST</button>
+                   
+                </>
           );
 
 }

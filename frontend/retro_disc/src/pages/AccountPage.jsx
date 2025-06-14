@@ -1,17 +1,14 @@
 import React,{useEffect, useState} from "react";
-import { Link, useNavigate } from 'react-router';
+import { Link } from 'react-router';
 import CDdisplay from "../components/CDdisplay";
 import Popup from "../components/Popup";
 
 
 
 
-const AccountPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount, searchBar, setSearchBar, createCart, popupObject, setPopupObject, adminPriv, setAdminPriv}) => {
+const AccountPage = ({urlFix, logOut, loggedIn, setLoggedIn, totalPrint, setTotalPrint, cartItems, setCartItems, cartCount, setCartCount, searchBar, setSearchBar, createCart, popupObject, setPopupObject, adminPriv, setAdminPriv}) => {
    const [passwordInput, setPasswordInput] = useState("")
-   const [emailInput, setEmailInput] = useState("")
-   const [loggedIn, setLoggedIn ] = useState(false);
-   const [customerPref, setCustomerPref] = useState([]);
-   const navigate = useNavigate();   
+   const [emailInput, setEmailInput] = useState("") 
    const [searchType, setSearchType] = useState({type:"search"})
    const [cdArray, setCDArray ] = useState([]);
 
@@ -29,7 +26,11 @@ const AccountPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount, 
    }
    
    useEffect( ()=>{
-      createCart();
+      createCart();      
+      setTotalPrint(()=>{
+         return false;
+      })
+     
    },[])
 
    useEffect(()=>{
@@ -107,12 +108,7 @@ const AccountPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount, 
    }
 
 
-   useEffect(()=>{
-
-
-
-
-   },[searchBar])
+  
 
    const logInView = ()=>{        
          
@@ -260,17 +256,7 @@ const AccountPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount, 
             </>
    }
 
-   const logOut = ()=>{
-         localStorage.setItem('TOKEN', "");
-         localStorage.setItem('EMAIL', "");
-      setLoggedIn(()=>{
-         return false;
-      })
-      setAdminPriv(()=>{
-         return false;
-      })
-
-   }
+  
 
 
    const verifyToken = async ()=>{

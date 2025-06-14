@@ -3,13 +3,11 @@ import {Link, Route, Routes } from 'react-router'
 
 
 
-const Navigator = ({adminPriv, setAdminPriv}) => {
+const Navigator = ({adminPriv, setAdminPriv, totalPrint, setTotalPrint, logOut, loggedIn}) => {
 
 
           return(
-                             <>                            
-
-<nav className="navbar navbar-expand-lg bg-body-tertiary" style={{ fontSize:'2rem'}}>
+                             <>   {!totalPrint && <nav className="navbar navbar-expand-lg bg-body-tertiary" style={{ fontSize:'2rem'}}>
   <div className="container-fluid">
     <div>  
       <div className="d-inline-flex justify-content-center" style={{gap:'1rem'}}>
@@ -36,6 +34,10 @@ const Navigator = ({adminPriv, setAdminPriv}) => {
         <li className="nav-item">
           <Link className="nav-link" href="#"  to="/checkout" >Cart</Link>
         </li>
+        {loggedIn && <li className="nav-item">
+          <div className="nav-link cursor-pointer" role='button' onClick={()=>{logOut()}}> Log Out</div>
+        </li>}
+        
         {adminPriv && (<li className="nav-item">
           <Link className="nav-link" style={{color:'red'}} href="#"  to="/admin" >Admin</Link>
         </li>)}
@@ -54,7 +56,9 @@ const Navigator = ({adminPriv, setAdminPriv}) => {
     </div>
     
   </div>
-</nav>
+</nav>}                         
+
+
                              </>
           );
 

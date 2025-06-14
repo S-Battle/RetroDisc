@@ -3,12 +3,12 @@ import { Link } from "react-router";
 
 
 
-const RetroFoot = () => {
+const RetroFoot = ({totalPrint, setTotalPrint}) => {
 
 
           return (
             <>
-            <div id="footing" style={{color:'pink'}} className="container fs-3">
+            {!totalPrint && <div id="footing" style={{color:'pink'}} className="container fs-3">
               <footer className="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
                 {" "}
                 <p className="col-md-4 mb-0 text-body-secondary">
@@ -48,7 +48,8 @@ const RetroFoot = () => {
                   </li>{" "}
                 </ul>{" "}
               </footer>
-              </div>
+              </div>  }
+            
             </>
           );
 

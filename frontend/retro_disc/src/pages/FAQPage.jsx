@@ -1,9 +1,15 @@
-import React from  "react";
+import React, { useEffect } from  "react";
 
 
 
-const FAQPage = () => {
 
+const FAQPage = ({totalPrint, setTotalPrint}) => {
+
+   useEffect(()=>{
+      setTotalPrint(()=>{
+         return false;
+      })
+   },[])
 
           return(
                              <>

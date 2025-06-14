@@ -4,7 +4,7 @@ import Popup from "../components/Popup";
 
 
 
-const HomePage = ( {   popupObject, setPopupObject, searchBar, setSearchBar, cartItems, setCartItems, cartCount, setCartCount, urlFix} ) => {
+const HomePage = ( { totalPrint, setTotalPrint,   popupObject, setPopupObject, searchBar, setSearchBar, cartItems, setCartItems, cartCount, setCartCount, urlFix} ) => {
   
   let carouselArray = [
     "hiphopimg.jpg",
@@ -66,6 +66,12 @@ const HomePage = ( {   popupObject, setPopupObject, searchBar, setSearchBar, car
 
     doTheThang();
   }, []);
+
+  useEffect(()=>{
+     setTotalPrint(()=>{
+        return false;
+     })
+  },[])
           
   const changeCarouselImage = (newNumber)=>{
 
@@ -73,15 +79,7 @@ const HomePage = ( {   popupObject, setPopupObject, searchBar, setSearchBar, car
                 let newValue = carouselArray[newNumber % carouselArray.length];                
                 console.log(newNumber)               
                 return newValue;
-              });                       
-      
-
-
-
-
-
-
-
+              });
   }
 
 

@@ -4,9 +4,11 @@ import CDdisplay from "../components/CDdisplay";
 import CDcheckout from "../components/CDcheckout";
 import CheckoutTotal from "../components/CheckoutTotal";
 import StripeContainer from "../components/StripeContainer";
+import SuccessfulPaymentElement from "../components/SuccessfulPaymentElement";
+import SuccessfulPaymentPage from "./SuccessfulPaymentPage";
 
 
-const CheckoutPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount, searchBar, setSearchBar, createCart}) => {
+const CheckoutPage = ({urlFix, loggedIn, totalPrint, setTotalPrint, cartItems, setCartItems, cartCount, setCartCount, searchBar, setSearchBar, createCart}) => {
         const [addressInput, setAddressInput ] = useState("");
         const [cityInput, setCityInput ] = useState("");
         const [stateInput, setStateInput ] = useState("");
@@ -14,6 +16,7 @@ const CheckoutPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount,
         const [success, setSuccess] = useState(false);
         const [checkoutAmount, setCheckoutAmount] = useState(-1)
         const [nameInput, setNameInput] = useState("");
+        const [paymentMade, setPaymentMade ] = useState(false)
 
 
       
@@ -25,12 +28,36 @@ const CheckoutPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount,
           createCart();
     },[])
 
+    const needToLogIn = ()=>{
+        return (<>
+            <div  style={{height:"80vh"}}>
+            <div className=" container" style={{height:"100%"}}>
+            <div className="d-flex align-items-center flex-wrap" style={{height:"100%"}}>
+            <div className="d-flex flex-column col-12 col-lg-6">
+                <div><h1 >You have reached the cart.</h1></div>
+                <div><h1>Please log in/Register to make purchases.</h1></div>
+            </div>
+            <div className="col-12 col-lg-6">
+               <div style={{height: "100%", display:"flex", justifyContent:"center"}}><img style={{width:"50%"}} className="border rounded-circle" src="retro_disclogo.png" alt="retrodisc logo" /></div> 
+            </div>
+            </div>
+            
+            
+            </div>
+            </div>
+            
+            
+            
+            </>
+        );
+    }
+
 
     console.log(cartItems)
 
 
-          return(    <>
-                            <div className="container">
+          return(<>     
+                            {(!paymentMade && loggedIn) && <div className="container">
                             <div className="d-flex flex-wrap ">
                                 <div className="border   col-12  col-lg-6 ">
                                     {/* <h1 className="p-5">RETRO DISC</h1> */}
@@ -66,11 +93,7 @@ const CheckoutPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount,
                                             setZipInput(()=>{
                                                 return e.target.value
                                             })
-                                        }} type="number" /></label></div>
-
-                                        {/* Stripe goes here*/}
-
-                                        
+                                        }} type="number" /></label></div>                                                                               
                                         <StripeContainer
                                         urlFix={urlFix} 
                                         name={nameInput}
@@ -81,20 +104,9 @@ const CheckoutPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount,
                                         amount={checkoutAmount}
                                         cartItems = {cartItems}
                                         setCartItems = {setCartItems}
-                                        
-                                        
-                                        
+                                        paymentMade={paymentMade}
+                                        setPaymentMade={setPaymentMade}  
                                         />
-
-
-
-
-
-
-
-
-
-                                        
                                     </div>
                                 </div>
                                 <div className="border col-12 col-lg-6  overflow-auto d-flex flex-column justify-content-start align-content-center align-items-center align-items-lg-end align-content-lg-end justify-content-lg-start justify-content-center">
@@ -133,14 +145,18 @@ const CheckoutPage = ({urlFix, cartItems, setCartItems, cartCount, setCartCount,
                                 </div>
                                
                             </div>
-                            </div>
-
-
-
-
-
-
-                             </> );
+                            </div>}
+                            {(paymentMade && loggedIn) && <SuccessfulPaymentPage 
+                                amount={checkoutAmount}
+                                setCartItems={setCartItems}
+                                cartItems={cartItems}
+                                setTotalPrint={setTotalPrint}
+                                totalPrint={totalPrint}
+                            
+                            />}
+                            {(!loggedIn)&& needToLogIn() }
+                              
+                </> );
           
 
 }

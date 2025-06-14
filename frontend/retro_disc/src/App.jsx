@@ -19,6 +19,9 @@ function App() {
   const [popupObject, setPopupObject ] = useState({popupType:'',message1:'', message2:''});
   const [adminPriv, setAdminPriv ] = useState(false);
   const [successfulPayment, setSuccessfulPayment] = useState(false);
+  const [totalPrint, setTotalPrint] = useState(false)
+  const [loggedIn, setLoggedIn ] = useState(false);
+
   const urlFix = import.meta.env.VITE_URL_FIX;
 
   const createCart = ()=>{
@@ -48,6 +51,18 @@ function App() {
     }
     
   }
+
+   const logOut = ()=>{
+         localStorage.setItem('TOKEN', "");
+         localStorage.setItem('EMAIL', "");
+      setLoggedIn(()=>{
+         return false;
+      })
+      setAdminPriv(()=>{
+         return false;
+      })
+
+   }
  
 
   return (
@@ -56,6 +71,10 @@ function App() {
      <Navigator
      adminPriv={adminPriv}
      setAdminPriv={setAdminPriv}
+     totalPrint={totalPrint}
+     setTotalPrint={setTotalPrint}
+     logOut={logOut}
+     loggedIn={loggedIn}
      >
       {/* <Link to="/" ><div style={{marginLeft: "2rem"}}>Home</div></Link>      
       <Link to="/cart" >Cart</Link>
@@ -73,7 +92,7 @@ function App() {
         createCart={createCart}
         popupObject={popupObject}
         setPopupObject={setPopupObject}
-        
+        setTotalPrint={setTotalPrint} 
         urlFix={urlFix}
         
         />}/>
@@ -93,6 +112,11 @@ function App() {
         setPopupObject={setPopupObject}
         adminPriv={adminPriv}
         setAdminPriv={setAdminPriv}
+        totalPrint={totalPrint}
+        setTotalPrint={setTotalPrint}
+        loggedIn={loggedIn}
+        setLoggedIn={setLoggedIn}
+        logOut={logOut}
       />} /> 
       <Route path='/admin' element={<AdminPage 
         urlFix={urlFix}
@@ -105,6 +129,7 @@ function App() {
         createCart={createCart}  
         adminPriv={adminPriv}
         setAdminPriv={setAdminPriv}
+        setTotalPrint={setTotalPrint}
         />}/>
         <Route path='/checkout' element={<CheckoutPage 
         urlFix={urlFix}
@@ -116,20 +141,32 @@ function App() {
         setSearchBar={setSearchBar}
         createCart={createCart}  
         popupObject={popupObject}
-        setPopupObject={setPopupObject}        
+        setPopupObject={setPopupObject}
+        setTotalPrint={setTotalPrint}
+        totalPrint={totalPrint}
+        loggedIn={loggedIn}        
         />}/>
-        <Route path='/about' element={<AboutPage           
+        <Route path='/about' element={<AboutPage
+        setTotalPrint={setTotalPrint}           
         />}/>
-        <Route path='/faq' element={<FAQPage       
+        <Route path='/faq' element={<FAQPage
+        setTotalPrint={setTotalPrint}       
         />}/>
-         <Route path="/successful_payment" element={<SuccessfulPaymentPage 
-        />} />
+         {/* <Route path="/successful_payment" element={<SuccessfulPaymentPage 
+          cartItems={cartItems}
+          setCartItems={setCartItems}  
+               
+        />} /> */}
 
 
     </Routes>
 
 
-      <RetroFoot/>
+      <RetroFoot
+      totalPrint={totalPrint}
+      setTotalPrint={setTotalPrint}
+      
+      />
 
     </>
 
