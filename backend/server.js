@@ -243,11 +243,31 @@ app.get('/api/get/new/releases', async (req, res)=>{
 
 })
 
+app.get('/api/get/top/sellers', async (req, res)=>{
+  let number = 9;
+  const url =  `SELECT alb.album_id, art.artist_name, alb.album_name, alb.album_year, alb.album_price, gnr.genre_name, SUM(num_sales) AS total 
+                FROM sales sal
+                JOIN album alb ON alb.album_id = sal.album_id
+                JOIN artist art ON art.artist_id = alb.artist_id
+                JOIN genre gnr ON gnr.genre_id = alb.album_genre 
+                GROUP BY alb.album_id, art.artist_name, gnr.genre_name, alb.album_price
+                ORDER BY total DESC
+                LIMIT 9`;
+
+  const data = await client.query(url);
+  //console.log(data.rows)
+  if(data.rowCount > 0){
+    res.json({message:'success', result: data.rows})
+  }
+  else{
+    res.json({message:'unsuccessful', result: "NO ALBUMS WERE FOUND"})
+  }
+})
 
 app.get('/api/get/all/users', async(req, res)=>{
   const data = await client.query("SELECT user_id, email FROM users",);
                                 
-console.log(data.rows);
+  console.log(data.rows);
 
   if(data.rowCount > 0){
     res.json({message:"success", users: data.rows});
@@ -297,7 +317,7 @@ app.post("/api/checkout/payment", cors(), async (req, res)=>{
       description: "CD",
       payment_method: id,
       confirm: true,
-      
+            
       automatic_payment_methods: {
         enabled: true,
         allow_redirects: "never"
@@ -316,7 +336,7 @@ app.post("/api/checkout/payment", cors(), async (req, res)=>{
       success: false,
     })
   }
-})
+});
 
 app.post("/api/retrieve/user_id", async (req, res)=>{
   let SQL = `SELECT * FROM users
@@ -332,15 +352,11 @@ app.post("/api/update/sales", async (req, res)=>{
   let SQL = `INSERT INTO sales(user_id, album_id, num_sales, cust_name, address, city, cust_state, zip, purchase_id)
              VALUES `;
   const { array } = req.body;
-  console.log(array);
-  console.log(SQL+array)
+  //console.log(array);
+  //console.log(SQL+array)
   const result = await client.query(SQL+array);
-  console.log(result);
-
-
-
+  //console.log(result);
 })
-
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

@@ -47,7 +47,7 @@ const PaymentForm = ({urlFix, tokenEmail, popupObject, setPopupObject, name, add
     const handleSubmit = async (e)=>{
         //e.preventDefault();
         if( (name == "") || (address == "") || (city == "") || ( state == "") || (zip == "")){
-            console.log("NO BUENO")
+            //console.log("NO BUENO")
             let popup = new Object();
             popup.type = "type1"
             popup.message1 = "Please fill in all fields before continuing."
@@ -90,9 +90,9 @@ const PaymentForm = ({urlFix, tokenEmail, popupObject, setPopupObject, name, add
                     })
                 })
                 const responseData = await response.json();
-                console.log(responseData)
+                //console.log(responseData)
                 if(responseData.success){
-                    console.log("Successful Payment");
+                    //console.log("Successful Payment");
                     
                     setPaymentMade(()=>{                        
                         let myVal = true;
@@ -117,7 +117,7 @@ const PaymentForm = ({urlFix, tokenEmail, popupObject, setPopupObject, name, add
             })
         })
         let data = await response.json();
-        console.log(response);
+        //console.log(response);
         return data;
     }
 
@@ -156,12 +156,12 @@ const PaymentForm = ({urlFix, tokenEmail, popupObject, setPopupObject, name, add
                     {(cartItems.length > 0) && <button className="btn-lng mt-3" role='btn' onClick={()=>{
                     handleSubmit();
                     }}>PAY</button> }  <br />
-                    <button className="btn-lng mt-3" role='btn' onClick={()=>{
+                    {/* <button className="btn-lng mt-3" role='btn' onClick={()=>{
                         updatePurchases();
                         //getUserId();
-                    }}>Update Purchases</button>                              
+                    }}>Update Purchases</button>                               */}
                 </div>
-                <button className="mt-3" onClick={()=>{ tempSuccessPayment()}}>TEST</button>
+                {/* <button className="mt-3" onClick={()=>{ tempSuccessPayment()}}>TEST</button> */}
                    
                 </>
           );

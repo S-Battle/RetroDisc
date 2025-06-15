@@ -77,7 +77,7 @@ function App() {
             let popup = new Object();
             popup.type='type1';
             popup.message1="Your session has ended."
-            popup.message2="Please log in again to continue"
+            popup.message2="Please log in again to continue."
             setPopupObject(()=>{
                return popup;
             })

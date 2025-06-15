@@ -22,7 +22,16 @@ const AccountPage = ({urlFix, verifyToken, logOut, loggedIn, setLoggedIn, totalP
          
          return [...data.result]
       })
+   }
+   const getTopSellers = async() =>{
+      const request = await fetch(`${urlFix}/api/get/top/sellers`);
+      const data = await request.json()
+      console.log(data)
 
+      setCDArray(()=>{
+         
+         return [...data.result]
+      })
    }
    
    useEffect( ()=>{
@@ -189,7 +198,7 @@ const AccountPage = ({urlFix, verifyToken, logOut, loggedIn, setLoggedIn, totalP
                     {/* <label className="d-flex justify-content-evenly" htmlFor=""><button className="w-25 bg-primary">ARTIST</button><button className="w-25 bg-primary">ALBUM</button><button className="w-25 bg-primary" >BOTH</button></label> */}
                     <label htmlFor=""><div className="w-100 fs-1 ">SEARCH </div><input className="remh4 w-100 border border-dark rounded p-2 fs-2"  value={searchBar} onChange={(e)=>{searchBarInputHandler(e)}} onKeyUp={(e)=>{ checkKey(e)}} type="text" /> </label>                      
                     <label htmlFor=""> <button className="w-100 fs-3" onClick={()=>{ searchButton('newReleases'); getNewReleases();}}>NEW RELEASES</button></label>
-                    <label htmlFor=""> <button className="w-100 fs-3" onClick={()=>{ searchButton('topSellers')}}>TOP SELLERS</button></label>
+                    <label htmlFor=""> <button className="w-100 fs-3" onClick={()=>{ searchButton('topSellers'); getTopSellers();}}>TOP SELLERS</button></label>
                     <label htmlFor=""></label>
                     <label htmlFor=""></label>
                     <label htmlFor=""></label>
@@ -199,7 +208,7 @@ const AccountPage = ({urlFix, verifyToken, logOut, loggedIn, setLoggedIn, totalP
                     {/* <label className="d-flex justify-content-evenly" htmlFor=""><button className="w-25 bg-primary">ARTIST</button><button className="w-25 bg-primary">ALBUM</button><button className="w-25 bg-primary" >BOTH</button></label> */}
                                 
                     <label htmlFor=""><div className="w-100 fs-1 ">New Releases </div></label> 
-                    <label htmlFor=""> <button className="w-100 fs-3" onClick={()=>{ searchButton('topSellers')}} >TOP SELLERS</button></label>
+                    <label htmlFor=""> <button className="w-100 fs-3" onClick={()=>{ searchButton('topSellers'); getTopSellers(); }} >TOP SELLERS</button></label>
                     <label htmlFor=""> <button className="w-100 fs-3" onClick={()=>{ searchButton('search')}}>SEARCH</button></label> 
                     <label htmlFor=""></label>
                     <label htmlFor=""></label>
