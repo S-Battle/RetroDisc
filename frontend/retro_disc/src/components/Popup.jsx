@@ -51,7 +51,7 @@ const Popup = ({ popupObject, setPopupObject }) => {
         
         <div style={outerStyle}>
             <div style={innerStyle}>
-                <div className="d-flex justify-content-center image-fluid" ><img className="border rounded-circle mb-5"  style={{minWidth:"100px", maxWidth:"2000px"}} src="retro_disclogobw.png" alt="RetroDiscLogo" /></div>
+                <div className="d-flex justify-content-center image-fluid" ><img className="border rounded-circle mb-5"  style={{minWidth:"100px", maxWidth:"200px"}} src="retro_disclogobw.png" alt="RetroDiscLogo" /></div>
                 <div className="d-flex justify-content-center"><h4>{popupObject.message1}</h4></div>
                 <div className=" d-flex justify-content-center"><h4>{popupObject.message2}</h4></div>
                 <div className="d-flex justify-content-center"><button className="fs-3 fw-bold border border-dark" onClick={()=>{closePopup()}}>CONTINUE</button></div>
