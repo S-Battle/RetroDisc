@@ -37,7 +37,7 @@ const CheckoutPage = ({urlFix,  tokenEmail , verifyToken, loggedIn, popupObject,
             <div className="d-flex align-items-center flex-wrap" style={{height:"100%"}}>
             <div className="d-flex flex-column col-12 col-lg-6">
                 <div><h1 >You have reached the cart.</h1></div>
-                <div><h1>Please log in/Register to make purchases.</h1></div>
+                <div><h1>Please Log In/Register to make a purchase.</h1></div>
             </div>
             <div className="col-12 col-lg-6">
                <div style={{height: "100%", display:"flex", justifyContent:"center"}}><img style={{width:"50%"}} className="border rounded-circle" src="retro_disclogo.png" alt="retrodisc logo" /></div> 
