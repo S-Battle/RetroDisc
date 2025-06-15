@@ -26,7 +26,8 @@ client.connect();
 
 app.use(express.json())
 
-const target = path.resolve(__dirname, '../','frontend','retro_disc','dist');
+//const target = path.resolve(__dirname, '../','frontend','retro_disc','dist');
+const target = path.resolve(__dirname, "dist");
 //console.log(target);
 //console.log(path.join(__dirname, 'public'))
 //app.use(express.static(path.join(__dirname, 'public')))
