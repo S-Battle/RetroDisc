@@ -30,23 +30,25 @@ const target = path.resolve(__dirname, '../','frontend','retro_disc','dist');
 //console.log(target);
 //console.log(path.join(__dirname, 'public'))
 //app.use(express.static(path.join(__dirname, 'public')))
-app.use(express.static(path.join(__dirname, target)));
 
-app.get('/', async (req, res) =>{  
-res.sendFile("index.html");
-})
-app.get('/home', async (req, res) =>{
-  res.sendFile("index.html");
-})
-app.get('/cart', async (req, res) =>{
-  res.sendFile( "index.html");
-})
-app.get('/account', async (req, res) =>{
-  res.sendFile("index.html");
-})
-app.get('/checkout', async (req, res) =>{
-  res.sendFile("index.html");
-})
+
+
+// app.use(express.static(path.join(__dirname, target)));
+// app.get('/', async (req, res) =>{  
+// res.sendFile("index.html");
+// })
+// app.get('/home', async (req, res) =>{
+//   res.sendFile("index.html");
+// })
+// app.get('/cart', async (req, res) =>{
+//   res.sendFile( "index.html");
+// })
+// app.get('/account', async (req, res) =>{
+//   res.sendFile("index.html");
+// })
+// app.get('/checkout', async (req, res) =>{
+//   res.sendFile("index.html");
+// })
 
 
 app.get('/api', (req, res)=>{    
