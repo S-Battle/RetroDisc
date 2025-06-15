@@ -26,11 +26,11 @@ client.connect();
 
 app.use(express.json())
 
-//const target = path.resolve(__dirname, '../','frontend','retro_disc','dist');
+const target = path.resolve(__dirname, '../','frontend','retro_disc','dist');
 //console.log(target);
-console.log(path.join(__dirname, 'public'))
-app.use(express.static(path.join(__dirname, 'public')))
-// app.use(express.static(target));
+//console.log(path.join(__dirname, 'public'))
+//app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, target)));
 
 app.get('/', async (req, res) =>{  
 res.sendFile("index.html");
